@@ -1,4 +1,4 @@
-Samatov Sergey Salimbekovich
-Salatov Ivan Petrovich
-Saratov Anton Robertovich
-Safatov Oleg Igorevich
+Samatov Sergey Salimbekovich 2 A
+Salatov Ivan Petrovich 1 A
+Saratov Anton Robertovich 4 A
+Safatov Oleg Igorevich 3 A

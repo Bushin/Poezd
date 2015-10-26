@@ -20,7 +20,9 @@ namespace Step_v0
 
         string[] info;
         string[] route;
-
+        Image[] images = null;
+        string mesto_b;
+        int mesto_n,i;
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
@@ -113,6 +115,7 @@ namespace Step_v0
 
         private void Receive_data2_Click(object sender, EventArgs e)
         {
+            Shema.Visible = true;
             Passanger passanger = new Passanger();
             List<string> collection = new List<string>();
             StreamReader fs2 = new StreamReader("baseV3.txt");
@@ -139,6 +142,8 @@ namespace Step_v0
                     passanger.Surname = info[0];
                     passanger.Name = info[1];
                     passanger.Secondname = info[2];
+                    mesto_n = int.Parse(info[3]);
+                    mesto_b = info[4];
                     k++;
                     Vivod_data.Items.Add(collection[i]);
                 }
@@ -155,12 +160,13 @@ namespace Step_v0
 
         private void Receive_data3_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Clean_Click(object sender, EventArgs e)
         {
             Vivod_data.Items.Clear();
+            pictureBox1.Refresh();
         }
 
         private void Count_Click(object sender, EventArgs e)
@@ -190,8 +196,30 @@ namespace Step_v0
             train.Nomer = info[0];
             train.Type = info[1];
             train.Speed = int.Parse(info[2]);
-            Vivod_data.Items.Add("Поезд будет в пути 40 лет:");
+            Vivod_data.Items.Add("Поезд будет в пути :");
             Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");
+        }
+
+        private void Shema_Click(object sender, EventArgs e)
+        {
+            
+            images = new Image[7];
+            for (int k = 0; k < images.Length; k++)
+            {
+                images[k] = Image.FromFile(string.Format(@"{0}.jpg", k));
+            }
+            
+            if (mesto_b == "A")
+            {
+                 i = mesto_n - 1;
+            }
+            pictureBox1.Visible = true;
+            label10.Visible = true;
+            label11.Visible = true;
+            label12.Visible = true;
+            label13.Visible = true;
+            pictureBox1.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox1.Image = images[i];
         }
     }
 
@@ -206,12 +234,16 @@ namespace Step_v0
         }
     }
 
+    public class Vagon {
+
+    }
+
     public class Passanger {
         public string Surname, Name, Secondname;
 
         public void AnalizInfo(string surname, string name, string secondname)
         {
-            // Analiz
+            
         }
     }
 
