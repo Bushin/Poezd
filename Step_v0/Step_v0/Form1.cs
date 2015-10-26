@@ -190,7 +190,7 @@ namespace Step_v0
             train.Nomer = info[0];
             train.Type = info[1];
             train.Speed = int.Parse(info[2]);
-            Vivod_data.Items.Add("Поезд будет в пути:");
+            Vivod_data.Items.Add("Поезд будет в пути 40 лет:");
             Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");
         }
     }
