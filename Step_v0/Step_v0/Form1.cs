@@ -166,7 +166,7 @@ namespace Step_v0
         private void Clean_Click(object sender, EventArgs e)
         {
             Vivod_data.Items.Clear();
-            pictureBox1.Refresh();
+            pictureBox.Refresh();
         }
 
         private void Count_Click(object sender, EventArgs e)
@@ -202,24 +202,49 @@ namespace Step_v0
 
         private void Shema_Click(object sender, EventArgs e)
         {
-            
-            images = new Image[7];
-            for (int k = 0; k < images.Length; k++)
-            {
-                images[k] = Image.FromFile(string.Format(@"{0}.jpg", k));
-            }
-            
-            if (mesto_b == "A")
-            {
-                 i = mesto_n - 1;
-            }
-            pictureBox1.Visible = true;
+            pictureBox.Visible = true;
+            pictureBox.BackColor = Color.Transparent;
             label10.Visible = true;
             label11.Visible = true;
             label12.Visible = true;
             label13.Visible = true;
-            pictureBox1.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox1.Image = images[i];
+            PictureBox pictureBoxs = new PictureBox();
+            pictureBoxs.Size = new Size(22,22);
+            pictureBoxs.Load("seat.jpg");
+            pictureBoxs.BackColor = Color.Transparent;
+            if (mesto_b == "A")
+            {
+                pictureBoxs.Location = new Point(8, 8+29*(mesto_n-1));
+                pictureBox.Controls.Add(pictureBoxs);
+            }
+            if (mesto_b == "B")
+            {
+                pictureBoxs.Location = new Point(30, 8 + 29 * (mesto_n - 1));
+                pictureBox.Controls.Add(pictureBoxs);
+            }
+            if (mesto_b == "C")
+            {
+                pictureBoxs.Location = new Point(56, 8 + 29 * (mesto_n - 1));
+                pictureBox.Controls.Add(pictureBoxs);
+            }
+            if (mesto_b == "D")
+            {
+                pictureBoxs.Location = new Point(78, 8 + 29 * (mesto_n - 1));
+                pictureBox.Controls.Add(pictureBoxs);
+            }
+
+
+            /* images = new Image[7];
+             for (int k = 0; k < images.Length; k++)
+             {
+                 images[k] = Image.FromFile(string.Format(@"{0}.jpg", k));
+             }
+
+             if (mesto_b == "A")
+             {
+                  i = mesto_n - 1;
+             }*/
+
         }
     }
 
