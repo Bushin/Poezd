@@ -221,7 +221,7 @@
             // Vivod_data
             // 
             this.Vivod_data.FormattingEnabled = true;
-            this.Vivod_data.Location = new System.Drawing.Point(731, 215);
+            this.Vivod_data.Location = new System.Drawing.Point(647, 215);
             this.Vivod_data.Name = "Vivod_data";
             this.Vivod_data.Size = new System.Drawing.Size(446, 407);
             this.Vivod_data.TabIndex = 16;
@@ -322,7 +322,7 @@
             // 
             this.pictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox.BackgroundImage")));
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox.Location = new System.Drawing.Point(1440, 215);
+            this.pictureBox.Location = new System.Drawing.Point(1090, 215);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(184, 343);
             this.pictureBox.TabIndex = 25;
@@ -332,7 +332,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1447, 196);
+            this.label10.Location = new System.Drawing.Point(1099, 196);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 13);
             this.label10.TabIndex = 26;
@@ -342,7 +342,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1468, 196);
+            this.label11.Location = new System.Drawing.Point(1120, 196);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(15, 13);
             this.label11.TabIndex = 27;
@@ -352,7 +352,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1502, 196);
+            this.label12.Location = new System.Drawing.Point(1150, 196);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 13);
             this.label12.TabIndex = 28;
@@ -362,7 +362,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1523, 196);
+            this.label13.Location = new System.Drawing.Point(1171, 196);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(16, 13);
             this.label13.TabIndex = 29;
@@ -371,7 +371,7 @@
             // 
             // Shema
             // 
-            this.Shema.Location = new System.Drawing.Point(1427, 584);
+            this.Shema.Location = new System.Drawing.Point(1090, 584);
             this.Shema.Name = "Shema";
             this.Shema.Size = new System.Drawing.Size(168, 38);
             this.Shema.TabIndex = 30;
@@ -386,7 +386,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1828, 693);
+            this.ClientSize = new System.Drawing.Size(1286, 693);
             this.Controls.Add(this.Shema);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
