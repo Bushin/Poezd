@@ -23,6 +23,7 @@ namespace Step_v0
         Image[] images = null;
         string mesto_b;
         int mesto_n,i;
+        PictureBox pictureBoxs = new PictureBox();
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
@@ -89,10 +90,19 @@ namespace Step_v0
                     break;
             }
             string str = textNomer.Text;
-            int k = 0;
+            bool flag=true;int k = 0;
+            if (str == "")
+            {
+                flag = false;k++;
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    Vivod_data.Items.Add(collection[i]);
+                }
+            }
+            
             for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i].Contains(str))
+                if ((collection[i].Contains(str)) && (flag==true))
                 {
                     info = collection[i].Split(' ');
                     route = info[4].Split('-');
@@ -103,14 +113,14 @@ namespace Step_v0
                     Count.Visible = true;
                 }
             }
-
+        
             if (k == 0)
             {
                 MessageBox.Show("Не найденно совпадений");
                 Vivod_data.Items.Add("Совпадений не найдено");
             }
                 // string s = Properties.Resources.Base;
-                Vivod_data.Visible = true;
+                Vivod_data.Visible = true;       
         }
 
         private void Receive_data2_Click(object sender, EventArgs e)
@@ -133,21 +143,34 @@ namespace Step_v0
             string str1 = textBox1.Text;
             string str2 = textBox6.Text;
             string str3 = textBox5.Text;
-            int k = 0;
-            for (int i = 0; i < collection.Count; i++)
+            string str_ob1 = str1+ " " + str2;
+            string str_ob2 = " " + str3;
+            bool flag = true; int k = 0;
+            if ((str1 == "") && (str2=="") && (str3==""))
             {
-                if ((collection[i].Contains(str1)) && (collection[i].Contains(str2)) && (collection[i].Contains(str3)))
+                flag = false; k++;
+                for (int i = 0; i < collection.Count; i++)
                 {
-                    string[] info = collection[i].Split(' ');
-                    passanger.Surname = info[0];
-                    passanger.Name = info[1];
-                    passanger.Secondname = info[2];
-                    mesto_n = int.Parse(info[3]);
-                    mesto_b = info[4];
-                    k++;
                     Vivod_data.Items.Add(collection[i]);
                 }
             }
+            
+            
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    if ((collection[i].Contains(str_ob1))&&(flag==true))
+                    {
+                        string[] info = collection[i].Split(' ');
+                        passanger.Surname = info[0];
+                        passanger.Name = info[1];
+                        passanger.Secondname = info[2];
+                        mesto_n = int.Parse(info[3]);
+                        mesto_b = info[4];
+                        k++;
+                        Vivod_data.Items.Add(collection[i]);
+                    }
+                }
+           
 
             if (k == 0)
             {
@@ -166,6 +189,7 @@ namespace Step_v0
         private void Clean_Click(object sender, EventArgs e)
         {
             Vivod_data.Items.Clear();
+            pictureBoxs.Image = null;
             pictureBox.Refresh();
         }
 
@@ -200,6 +224,29 @@ namespace Step_v0
             Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");
         }
 
+        private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curItem = Vivod_data.SelectedItem.ToString();
+            //textBox4.Text = curItem;
+            string[] info = curItem.Split(' ');
+            mesto_n = int.Parse(info[3]);
+            mesto_b = info[4];
+            pictureBox.Visible = true;
+            pictureBox.BackColor = Color.Transparent;
+            label10.Visible = true;
+            label11.Visible = true;
+            label12.Visible = true;
+            label13.Visible = true;
+            pictureBoxs.Size = new Size(22, 22);
+            pictureBoxs.Load("seat.jpg");
+            pictureBoxs.BackColor = Color.Transparent;
+            int X = Vagon.PoiskX(mesto_n, mesto_b);
+            int Y = Vagon.PoiskY(mesto_n, mesto_b);
+            pictureBoxs.Location = new Point(X, Y);
+            pictureBox.Controls.Add(pictureBoxs);
+
+        }
+
         private void Shema_Click(object sender, EventArgs e)
         {
             pictureBox.Visible = true;
@@ -208,43 +255,13 @@ namespace Step_v0
             label11.Visible = true;
             label12.Visible = true;
             label13.Visible = true;
-            PictureBox pictureBoxs = new PictureBox();
             pictureBoxs.Size = new Size(22,22);
             pictureBoxs.Load("seat.jpg");
             pictureBoxs.BackColor = Color.Transparent;
-            if (mesto_b == "A")
-            {
-                pictureBoxs.Location = new Point(8, 8+29*(mesto_n-1));
-                pictureBox.Controls.Add(pictureBoxs);
-            }
-            if (mesto_b == "B")
-            {
-                pictureBoxs.Location = new Point(30, 8 + 29 * (mesto_n - 1));
-                pictureBox.Controls.Add(pictureBoxs);
-            }
-            if (mesto_b == "C")
-            {
-                pictureBoxs.Location = new Point(56, 8 + 29 * (mesto_n - 1));
-                pictureBox.Controls.Add(pictureBoxs);
-            }
-            if (mesto_b == "D")
-            {
-                pictureBoxs.Location = new Point(78, 8 + 29 * (mesto_n - 1));
-                pictureBox.Controls.Add(pictureBoxs);
-            }
-
-
-            /* images = new Image[7];
-             for (int k = 0; k < images.Length; k++)
-             {
-                 images[k] = Image.FromFile(string.Format(@"{0}.jpg", k));
-             }
-
-             if (mesto_b == "A")
-             {
-                  i = mesto_n - 1;
-             }*/
-
+            int X = Vagon.PoiskX(mesto_n, mesto_b);
+            int Y = Vagon.PoiskY(mesto_n, mesto_b);
+            pictureBoxs.Location = new Point(X, Y);
+            pictureBox.Controls.Add(pictureBoxs);      
         }
     }
 
@@ -260,6 +277,54 @@ namespace Step_v0
     }
 
     public class Vagon {
+        public static int PoiskX(int mesto_nomer, string mesto_bukva) {
+            int x,s=0;
+            if (mesto_bukva == "A")
+            {
+                x = 8;
+                return x;   
+            }
+            if (mesto_bukva == "B")
+            {
+                x=30;
+                return x;
+            }
+            if (mesto_bukva == "C")
+            {
+                x = 56;
+                return x;
+            }
+            if (mesto_bukva == "D")
+            {
+                x = 78;
+                return x;
+            }
+            return s;
+        }
+        public static int PoiskY(int mesto_nomer, string mesto_bukva) {
+            int y,s=0;
+            if (mesto_bukva == "A")
+            {
+                y = 8 + 29 * (mesto_nomer - 1);
+                return y;
+            }
+            if (mesto_bukva == "B")
+            {
+                y = 8 + 29 * (mesto_nomer - 1); ;
+                return y;
+            }
+            if (mesto_bukva == "C")
+            {
+                y = 8 + 29 * (mesto_nomer - 1); ;
+                return y;
+            }
+            if (mesto_bukva == "D")
+            {
+                y = 8 + 29 * (mesto_nomer - 1); ;
+                return y;
+            }
+            return s;
+        }
 
     }
 
