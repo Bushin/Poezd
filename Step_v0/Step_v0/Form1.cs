@@ -20,13 +20,14 @@ namespace Step_v0
 
         string[] info;
         string[] route;
-        Image[] images = null;
+        int f = 0;
         string mesto_b;
         int mesto_n,i;
         PictureBox pictureBoxs = new PictureBox();
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
+                f = 1;
                 textBox1.Enabled = true;
                 textBox6.Enabled = true;
                 textBox5.Enabled = true;
@@ -41,6 +42,7 @@ namespace Step_v0
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
+                f = 2;
                 textBox3.Enabled = true;
                 textBox4.Enabled = true;
                 textBox1.Enabled = false;
@@ -55,6 +57,7 @@ namespace Step_v0
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton3.Checked)
+                f = 3;
                 textNomer.Enabled = true;
                 textBox3.Enabled = false;
                 textBox4.Enabled = false;
@@ -77,7 +80,7 @@ namespace Step_v0
         {
             Train train = new Train();
             List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseV2.txt");
+            StreamReader fs1 = new StreamReader("baseTrain.txt");
             while (true) 
             {
                 string s = fs1.ReadLine();
@@ -89,14 +92,15 @@ namespace Step_v0
                 else
                     break;
             }
-            string str = textNomer.Text;
-            bool flag=true;int k = 0;
+            string str = textNomer.Text, str_vivod="";
+            bool flag=true; int k = 0;
             if (str == "")
             {
                 flag = false;k++;
                 for (int i = 0; i < collection.Count; i++)
                 {
-                    Vivod_data.Items.Add(collection[i]);
+                    info = collection[i].Split('{');
+                    Vivod_data.Items.Add(info[0]);
                 }
             }
             
@@ -105,11 +109,16 @@ namespace Step_v0
                 if ((collection[i].Contains(str)) && (flag==true))
                 {
                     info = collection[i].Split(' ');
-                    route = info[4].Split('-');
-                    textBox4.Text = route[0];
-                    textBox3.Text = route[1];
+                    //route = info[4].Split('-');
+                    textBox4.Text = info[2];
+                    textBox3.Text = info[3];
                     k++;
-                    Vivod_data.Items.Add(collection[i]);
+                    for (int a=0;a<6;a++ )
+                    {
+                        str_vivod += info[a];
+                        str_vivod += " ";
+                    }
+                    Vivod_data.Items.Add(str_vivod);
                     Count.Visible = true;
                 }
             }
@@ -128,7 +137,7 @@ namespace Step_v0
             Shema.Visible = true;
             Passanger passanger = new Passanger();
             List<string> collection = new List<string>();
-            StreamReader fs2 = new StreamReader("baseV3.txt");
+            StreamReader fs2 = new StreamReader("basePassengers.txt");
             while (true)
             {
                 string s = fs2.ReadLine();
@@ -164,8 +173,6 @@ namespace Step_v0
                         passanger.Surname = info[0];
                         passanger.Name = info[1];
                         passanger.Secondname = info[2];
-                        mesto_n = int.Parse(info[3]);
-                        mesto_b = info[4];
                         k++;
                         Vivod_data.Items.Add(collection[i]);
                     }
@@ -189,13 +196,15 @@ namespace Step_v0
         private void Clean_Click(object sender, EventArgs e)
         {
             Vivod_data.Items.Clear();
+            Vivod_ostanovok.Items.Clear();
+            Vivod_ostanovok.Visible = false;
             pictureBoxs.Image = null;
             pictureBox.Refresh();
         }
 
         private void Count_Click(object sender, EventArgs e)
         {
-            List<string> collection = new List<string>();
+         /*   List<string> collection = new List<string>();
             StreamReader fs3 = new StreamReader("baseV4.txt");
             Train train = new Train();
             while (true)
@@ -221,47 +230,46 @@ namespace Step_v0
             train.Type = info[1];
             train.Speed = int.Parse(info[2]);
             Vivod_data.Items.Add("Поезд будет в пути :");
-            Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");
+            //Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");*/
         }
 
         private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string curItem = Vivod_data.SelectedItem.ToString();
-            //textBox4.Text = curItem;
-            string[] info = curItem.Split(' ');
-            mesto_n = int.Parse(info[3]);
-            mesto_b = info[4];
-            pictureBox.Visible = true;
-            pictureBox.BackColor = Color.Transparent;
-            label10.Visible = true;
-            label11.Visible = true;
-            label12.Visible = true;
-            label13.Visible = true;
-            pictureBoxs.Size = new Size(22, 22);
-            pictureBoxs.Load("seat.jpg");
-            pictureBoxs.BackColor = Color.Transparent;
-            int X = Vagon.PoiskX(mesto_n, mesto_b);
-            int Y = Vagon.PoiskY(mesto_n, mesto_b);
-            pictureBoxs.Location = new Point(X, Y);
-            pictureBox.Controls.Add(pictureBoxs);
-
+            if (f == 1)
+            {
+                string curItem = Vivod_data.SelectedItem.ToString();
+                string[] info = curItem.Split(' ');
+                mesto_n = int.Parse(info[5]);
+                mesto_b = info[7];
+                pictureBox.Visible = true;
+                pictureBox.BackColor = Color.Transparent;
+                label10.Visible = true;
+                label11.Visible = true;
+                label12.Visible = true;
+                label13.Visible = true;
+                pictureBoxs.Size = new Size(22, 22);
+                pictureBoxs.Load("seat.jpg");
+                pictureBoxs.BackColor = Color.Transparent;
+                int X = Vagon.PoiskX(mesto_n, mesto_b);
+                int Y = Vagon.PoiskY(mesto_n, mesto_b);
+                pictureBoxs.Location = new Point(X, Y);
+                pictureBox.Controls.Add(pictureBoxs);
+            }
+            if (f == 3)
+            {
+                Vivod_ostanovok.Visible = true;
+                string[] ostanovka;
+                ostanovka = info[6].Split('-');
+                for (int i=0;i<ostanovka.Length; i++)
+                {
+                    Vivod_ostanovok.Items.Add(ostanovka[i]);
+                }
+            }
         }
 
         private void Shema_Click(object sender, EventArgs e)
         {
-            pictureBox.Visible = true;
-            pictureBox.BackColor = Color.Transparent;
-            label10.Visible = true;
-            label11.Visible = true;
-            label12.Visible = true;
-            label13.Visible = true;
-            pictureBoxs.Size = new Size(22,22);
-            pictureBoxs.Load("seat.jpg");
-            pictureBoxs.BackColor = Color.Transparent;
-            int X = Vagon.PoiskX(mesto_n, mesto_b);
-            int Y = Vagon.PoiskY(mesto_n, mesto_b);
-            pictureBoxs.Location = new Point(X, Y);
-            pictureBox.Controls.Add(pictureBoxs);      
+             
         }
     }
 

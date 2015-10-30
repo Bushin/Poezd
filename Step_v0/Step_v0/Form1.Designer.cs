@@ -61,6 +61,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Shema = new System.Windows.Forms.Button();
+            this.Vivod_ostanovok = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -381,6 +382,15 @@
             this.Shema.Visible = false;
             this.Shema.Click += new System.EventHandler(this.Shema_Click);
             // 
+            // Vivod_ostanovok
+            // 
+            this.Vivod_ostanovok.FormattingEnabled = true;
+            this.Vivod_ostanovok.Location = new System.Drawing.Point(1100, 13);
+            this.Vivod_ostanovok.Name = "Vivod_ostanovok";
+            this.Vivod_ostanovok.Size = new System.Drawing.Size(208, 173);
+            this.Vivod_ostanovok.TabIndex = 31;
+            this.Vivod_ostanovok.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -388,6 +398,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1426, 693);
+            this.Controls.Add(this.Vivod_ostanovok);
             this.Controls.Add(this.Shema);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -461,6 +472,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button Shema;
+        private System.Windows.Forms.ListBox Vivod_ostanovok;
     }
 }
 
