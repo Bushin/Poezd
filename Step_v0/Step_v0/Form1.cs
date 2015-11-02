@@ -76,115 +76,84 @@ namespace Step_v0
                 e.Handled = false;
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text.Length == 1)
+                ((TextBox)sender).Text = ((TextBox)sender).Text.ToUpper();
+            ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
+        }
+
+
         private void Receive_data1_Click(object sender, EventArgs e)
         {
             Train train = new Train();
+            string str = textNomer.Text;
             List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseTrain.txt");
-            while (true) 
-            {
-                string s = fs1.ReadLine();
-
-                if (s != null)
-                {
-                    collection.Add(s);
-                }
-                else
-                    break;
-            }
-            string str = textNomer.Text, str_vivod="";
-            bool flag=true; int k = 0;
+            bool flag = true;
             if (str == "")
             {
-                flag = false;k++;
+                flag = false;
+                collection = Train.PoiskVsexPoezdov();
                 for (int i = 0; i < collection.Count; i++)
                 {
                     info = collection[i].Split('{');
                     Vivod_data.Items.Add(info[0]);
                 }
             }
-            
-            for (int i = 0; i < collection.Count; i++)
+            if (flag == true)
             {
-                if ((collection[i].Contains(str)) && (flag==true))
+                info = Train.PoiskPoezda(str, info);
+                if (info[0] == "null")
                 {
-                    info = collection[i].Split(' ');
-                    //route = info[4].Split('-');
-                    textBox4.Text = info[2];
-                    textBox3.Text = info[3];
-                    k++;
-                    for (int a=0;a<6;a++ )
-                    {
-                        str_vivod += info[a];
-                        str_vivod += " ";
-                    }
-                    Vivod_data.Items.Add(str_vivod);
+                    MessageBox.Show("Не найденно совпадений");
+                    Vivod_data.Items.Add("Совпадений не найдено");
+                }
+                else
+                {
+                    Vivod_data.Items.Add(info[0]);
                     Count.Visible = true;
                 }
-            }
-        
-            if (k == 0)
-            {
-                MessageBox.Show("Не найденно совпадений");
-                Vivod_data.Items.Add("Совпадений не найдено");
-            }
                 // string s = Properties.Resources.Base;
-                Vivod_data.Visible = true;       
+            }
+            Vivod_data.Visible = true;
         }
 
         private void Receive_data2_Click(object sender, EventArgs e)
         {
             Shema.Visible = true;
             Passanger passanger = new Passanger();
-            List<string> collection = new List<string>();
-            StreamReader fs2 = new StreamReader("basePassengers.txt");
-            while (true)
-            {
-                string s = fs2.ReadLine();
-
-                if (s != null)
-                {
-                    collection.Add(s);
-                }
-                else
-                    break;
-            }
             string str1 = textBox1.Text;
             string str2 = textBox6.Text;
             string str3 = textBox5.Text;
-            string str_ob1 = str1+ " " + str2;
-            string str_ob2 = " " + str3;
-            bool flag = true; int k = 0;
-            if ((str1 == "") && (str2=="") && (str3==""))
+            List<string> collection = new List<string>();
+            bool flag = true;
+            if ((str1 == "") && (str2 == ""))
             {
-                flag = false; k++;
+                flag = false;
+                collection = Passanger.PoiskVsexPasagirov();
                 for (int i = 0; i < collection.Count; i++)
                 {
                     Vivod_data.Items.Add(collection[i]);
                 }
             }
-            
-            
-                for (int i = 0; i < collection.Count; i++)
-                {
-                    if ((collection[i].Contains(str_ob1))&&(flag==true))
-                    {
-                        string[] info = collection[i].Split(' ');
-                        passanger.Surname = info[0];
-                        passanger.Name = info[1];
-                        passanger.Secondname = info[2];
-                        k++;
-                        Vivod_data.Items.Add(collection[i]);
-                    }
-                }
-           
-
-            if (k == 0)
+            if (flag == true)
             {
-                MessageBox.Show("Таких людей нет");
-                Vivod_data.Items.Add("Таких людей нет");
+                string str_ob = str1 + " " + str2;
+                collection = Passanger.PoiskPasagirov(str_ob);
+                if (collection[0].Contains("null"))
+                {
+                    MessageBox.Show("Таких пассажиров нет");
+                    Vivod_data.Items.Add("Таких пассажиров нет");
+                }
+                else
+                {
+                    for (int i = 0; i < collection.Count; i++)
+                    {
+                        Vivod_data.Items.Add(collection[i]);
+                    }       
+                }
             }
-            // string s = Properties.Resources.Base;
+            Count.Visible = true;
             Vivod_data.Visible = true;
         }
 
@@ -257,15 +226,21 @@ namespace Step_v0
             }
             if (f == 3)
             {
+                //string curItem = Vivod_data.SelectedItem.ToString();
+                //string[] info = curItem.Split(' ');
+                //string nomer_poezda = (info[0]);
+               // Train.PoiskPoezda(nomer_poezda);
                 Vivod_ostanovok.Visible = true;
                 string[] ostanovka;
-                ostanovka = info[6].Split('-');
+                ostanovka = info[1].Split('-');
                 for (int i=0;i<ostanovka.Length; i++)
                 {
                     Vivod_ostanovok.Items.Add(ostanovka[i]);
                 }
             }
         }
+
+       
 
         private void Shema_Click(object sender, EventArgs e)
         {
@@ -276,6 +251,55 @@ namespace Step_v0
     public class Train {
         public string Nomer, Type;
         public int Speed, Distance;
+
+        public static string[] PoiskPoezda(string Str,string[] info)
+        {
+            List<string> collection = new List<string>();
+            StreamReader fs1 = new StreamReader("baseTrain.txt");
+            while (true)
+            {
+                string s = fs1.ReadLine();
+                if (s != null)
+                {
+                    collection.Add(s);
+                }
+                else
+                    break;
+            }
+            int k = 0;
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i].Contains(Str)) 
+                {
+                    info = collection[i].Split('{');
+                    k++;
+                }
+            }
+            if (k == 0)
+            {
+                collection[0] = "null";
+                info = collection[0].Split(' ');
+            }
+            fs1.Close();
+            return info;
+        }
+
+        public static List<string> PoiskVsexPoezdov()
+        {
+            List<string> collection = new List<string>();
+            StreamReader fs1 = new StreamReader("baseTrain.txt");
+            while (true)
+            {
+                string s = fs1.ReadLine();
+                if (s != null)
+                {
+                    collection.Add(s);
+                }
+                else
+                    break;
+            }
+            return collection;
+        }
 
         public static int AnalizInfo(int distance, int speed)
         {
@@ -338,6 +362,50 @@ namespace Step_v0
 
     public class Passanger {
         public string Surname, Name, Secondname;
+        public static List<string> PoiskVsexPasagirov()
+        { 
+         StreamReader fs2 = new StreamReader("basePassengers.txt");
+         List<string> collection = new List<string>();
+            while (true)
+            {
+                string s = fs2.ReadLine();
+                if (s != null)
+                {
+                    collection.Add(s);
+                }
+                else
+                    break;
+            }
+            return collection;
+        }
+
+        public static List<string> PoiskPasagirov(string Str)
+        {
+            StreamReader fs2 = new StreamReader("basePassengers.txt");
+            List<string> collection = new List<string>();
+            int k = 0;
+            while (true)
+            {
+                string s = fs2.ReadLine();
+                if (s != null)
+                {
+                    if (s.IndexOf(Str) > -1)
+                    {
+                        collection.Add(s);
+                        k++;
+                    }
+                }
+                else
+                    break;
+            }  
+            if (k == 0)
+            {
+                collection.Add("null");
+            }
+            fs2.Close();
+            return collection;
+        }
+    
 
         public void AnalizInfo(string surname, string name, string secondname)
         {

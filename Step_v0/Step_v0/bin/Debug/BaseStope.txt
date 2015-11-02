@@ -1,4 +1,2 @@
 Moscow [A001] [15;22]
 Tyla [A011] [658;22]
-Moscow Sochi 1500 km
-Vladimir Tver 350 km
