@@ -19,7 +19,7 @@ namespace Step_v0
         }
 
         string[] info;
-        string[] route;
+        string[] arr;
         int f = 0;
         string mesto_b;
         int mesto_n,i;
@@ -37,6 +37,9 @@ namespace Step_v0
                 Receive_data2.Visible = true;
                 Receive_data1.Visible = false;
                 Receive_data3.Visible = false;
+                label1.ForeColor = Color.Red;
+                label5.ForeColor = Color.Blue;
+                label6.ForeColor = Color.Blue;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -52,6 +55,9 @@ namespace Step_v0
                 Receive_data3.Visible = true;
                 Receive_data2.Visible = false;
                 Receive_data1.Visible = false;
+                label5.ForeColor = Color.Red;
+                label1.ForeColor = Color.Blue;
+                label6.ForeColor = Color.Blue;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -67,6 +73,9 @@ namespace Step_v0
                 Receive_data1.Visible = true;
                 Receive_data2.Visible = false;
                 Receive_data3.Visible = false;
+                label6.ForeColor = Color.Red;
+                label1.ForeColor = Color.Blue;
+                label5.ForeColor = Color.Blue;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -102,16 +111,17 @@ namespace Step_v0
             }
             if (flag == true)
             {
-                info = Train.PoiskPoezda(str, info);
-                if (info[0] == "null")
+                collection = Train.PoiskPoezda(str);
+                if (collection[0].Contains("null"))
                 {
                     MessageBox.Show("Не найденно совпадений");
                     Vivod_data.Items.Add("Совпадений не найдено");
                 }
                 else
                 {
+                    info = collection[i].Split('{');
                     Vivod_data.Items.Add(info[0]);
-                    Count.Visible = true;
+                    MMT.Visible = true;
                 }
                 // string s = Properties.Resources.Base;
             }
@@ -120,7 +130,7 @@ namespace Step_v0
 
         private void Receive_data2_Click(object sender, EventArgs e)
         {
-            Shema.Visible = true;
+            
             Passanger passanger = new Passanger();
             string str1 = textBox1.Text;
             string str2 = textBox6.Text;
@@ -153,7 +163,7 @@ namespace Step_v0
                     }       
                 }
             }
-            Count.Visible = true;
+            MMT.Visible = true;
             Vivod_data.Visible = true;
         }
 
@@ -171,35 +181,32 @@ namespace Step_v0
             pictureBox.Refresh();
         }
 
-        private void Count_Click(object sender, EventArgs e)
+        private void MMT_Click(object sender, EventArgs e)
         {
-         /*   List<string> collection = new List<string>();
-            StreamReader fs3 = new StreamReader("baseV4.txt");
-            Train train = new Train();
-            while (true)
+            int[] coordinates;string[] time_Stops;int timeBegginHour, timeBegginMin, timeEndHour, timeEndMin;
+            string[] Arr_Train = new string[Vivod_data.Items.Count];
+            for (int j = 0; j < Vivod_data.Items.Count; j++)
             {
-                string s = fs3.ReadLine();
-
-                if (s != null)
-                {
-                    collection.Add(s);
-                }
-                else
-                    break;
+                string stroka = Vivod_data.Items[j].ToString();
+                arr = stroka.Split(' ');
+                Arr_Train[j] = arr[0];   // Массив поездов(номера)
             }
-            for (int i = 0; i < collection.Count; i++)
+            int i = 0; // Переключатель между поездами
+
+            // Данные для передачи в MMT
+            coordinates = Massive.Coordinates_fill(Arr_Train[i].Split('/'));
+            time_Stops = Massive.Time_stops_fill(Arr_Train[i].Split('/'));
+            timeBegginHour = int.Parse(time_Stops[0]); timeBegginMin = int.Parse(time_Stops[1]); timeEndHour = int.Parse(time_Stops[time_Stops.Length-2]); timeEndMin = int.Parse(time_Stops[time_Stops.Length-1]);
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+
+            Vivod_ostanovok.Visible = true;
+            for (int k=0;k<coordinates.Length;k++) {
+                Vivod_ostanovok.Items.Add(coordinates[k]);
+            }
+            for (int k = 0; k < time_Stops.Length; k++)
             {
-                if ((collection[i].Contains(route[0])) && (collection[i].Contains(route[1])))
-                {
-                   string[] route1 = collection[i].Split(' ');
-                     train.Distance = int.Parse(route1[2]);
-                }
-            }  
-            train.Nomer = info[0];
-            train.Type = info[1];
-            train.Speed = int.Parse(info[2]);
-            Vivod_data.Items.Add("Поезд будет в пути :");
-            //Vivod_data.Items.Add(Train.AnalizInfo(train.Distance, train.Speed) + " часов");*/
+                Vivod_ostanovok.Items.Add(time_Stops[k]);
+            }
         }
 
         private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
@@ -240,48 +247,37 @@ namespace Step_v0
             }
         }
 
-       
-
-        private void Shema_Click(object sender, EventArgs e)
-        {
-             
-        }
     }
 
     public class Train {
         public string Nomer, Type;
         public int Speed, Distance;
 
-        public static string[] PoiskPoezda(string Str,string[] info)
+        public static List<string> PoiskPoezda(string Str)
         {
             List<string> collection = new List<string>();
             StreamReader fs1 = new StreamReader("baseTrain.txt");
+            int k = 0;
             while (true)
             {
                 string s = fs1.ReadLine();
                 if (s != null)
                 {
-                    collection.Add(s);
+                    if (s.IndexOf(Str) > -1)
+                    {
+                        collection.Add(s);
+                        k++;
+                    }
                 }
                 else
                     break;
             }
-            int k = 0;
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (collection[i].Contains(Str)) 
-                {
-                    info = collection[i].Split('{');
-                    k++;
-                }
-            }
             if (k == 0)
             {
-                collection[0] = "null";
-                info = collection[0].Split(' ');
+                collection.Add("null");
             }
             fs1.Close();
-            return info;
+            return collection;
         }
 
         public static List<string> PoiskVsexPoezdov()
@@ -298,6 +294,7 @@ namespace Step_v0
                 else
                     break;
             }
+            fs1.Close();
             return collection;
         }
 
@@ -376,6 +373,7 @@ namespace Step_v0
                 else
                     break;
             }
+            fs2.Close();
             return collection;
         }
 
@@ -412,5 +410,84 @@ namespace Step_v0
             
         }
     }
+
+    public class Massive {
+        
+        public static int[] Coordinates_fill(string[] arr_train)
+        {
+            string[] arr;int[] coordinates=new int[0];
+            StreamReader fs3 = new StreamReader("BaseStope.txt");
+            StreamReader fs1 = new StreamReader("BaseTrain.txt");
+            List<string> collection = new List<string>();
+            while (true)
+            {
+                string s = fs1.ReadLine();
+                if (s != null)
+                {
+                    if (s.IndexOf(arr_train[0]) > -1)
+                    {
+                        collection.Add(s);
+                    }
+                }
+                else
+                    break;     
+            }
+            arr = collection[0].Split(' ');
+            arr[arr.Length - 1] = "null";
+            int j = 0;
+            while (true)
+            {
+                string s = fs3.ReadLine();
+                if (s != null)
+                {
+                    for(int i=7;i<arr.Count();i+=3)
+                    if (s.IndexOf(arr[i]) > -1)
+                    {
+                          Array.Resize(ref coordinates, coordinates.Length + 2);
+                          string[] info = s.Split(' ');
+                          coordinates[j] = int.Parse(info[2]);
+                          coordinates[j+1] = int.Parse(info[4]);
+                          j = j + 2; 
+                        }
+                }
+                else
+                    break;
+            }
+            return coordinates;
+        }
+
+        public static string[] Time_stops_fill(string[] arr_train)
+        {
+            StreamReader fs1 = new StreamReader("BaseTrain.txt");
+            List<string> collection = new List<string>();
+            string[] arr; string[] time_stops = new string[0];
+            while (true)
+            {
+                string s = fs1.ReadLine();
+                if (s != null)
+                {
+                    if (s.IndexOf(arr_train[0]) > -1)
+                    {
+                        collection.Add(s);
+                    }
+                }
+                else
+                    break;
+            }
+            arr = collection[0].Split(' ');
+            arr[arr.Length - 1] = "null";
+            int k = 0;
+            for (int j = 8; j < arr.Length; j += 3)
+            {
+                string[] time = (arr[j].Split(':'));
+                Array.Resize(ref time_stops, time_stops.Length + 2);
+                time_stops[k] = time[0].Replace("(","");
+                time_stops[k+1] = time[1].Replace(")",""); 
+                k = k + 2;
+            }
+            return time_stops;
+        }
+    }
+
 
 }
