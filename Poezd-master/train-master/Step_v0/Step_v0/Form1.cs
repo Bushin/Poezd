@@ -1,12 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Step_v0
@@ -28,12 +24,7 @@ namespace Step_v0
         {
             if (radioButton1.Checked)
                 f = 1;
-                textBox1.Enabled = true;
-                textBox6.Enabled = true;
-                textBox5.Enabled = true;
-                textBox3.Enabled = false;
-                textBox4.Enabled = false;
-                textNomer.Enabled = false;
+                textBox1.Enabled = true; textBox6.Enabled = true; textBox5.Enabled = true; textBox3.Enabled = false;textBox4.Enabled = false;textNomer.Enabled = false;
                 Vivod_data.Items.Clear();
                 Vivod_ostanovok.Items.Clear();
                 label1.ForeColor = Color.Gold;
@@ -45,12 +36,7 @@ namespace Step_v0
         {
             if (radioButton2.Checked)
                 f = 2;
-                textBox3.Enabled = true;
-                textBox4.Enabled = true;
-                textBox1.Enabled = false;
-                textBox6.Enabled = false;
-                textBox5.Enabled = false;
-                textNomer.Enabled = false;
+                textBox3.Enabled = true;textBox4.Enabled = true;textBox1.Enabled = false;textBox6.Enabled = false;textBox5.Enabled = false;textNomer.Enabled = false;
                 Vivod_data.Items.Clear();
                 Vivod_ostanovok.Items.Clear();
                 label5.ForeColor = Color.Gold;
@@ -62,12 +48,7 @@ namespace Step_v0
         {
             if (radioButton3.Checked)
                 f = 3;
-                textNomer.Enabled = true;
-                textBox3.Enabled = false;
-                textBox4.Enabled = false;
-                textBox1.Enabled = false;
-                textBox6.Enabled = false;
-                textBox5.Enabled = false;
+                textNomer.Enabled = true; textBox3.Enabled = false;textBox4.Enabled = false;textBox1.Enabled = false;textBox6.Enabled = false;textBox5.Enabled = false;
                 Vivod_data.Items.Clear();
                 Vivod_ostanovok.Items.Clear();
                 label6.ForeColor = Color.Gold;
@@ -231,7 +212,7 @@ namespace Step_v0
             coordinates = Massive.Coordinates_fill(Arr_Train[i].Split('/'));
             time_Stops = Massive.Time_stops_fill(Arr_Train[i].Split('/'));
             timeBegginHour = int.Parse(time_Stops[0]); timeBegginMin = int.Parse(time_Stops[1]); timeEndHour = int.Parse(time_Stops[time_Stops.Length-2]); timeEndMin = int.Parse(time_Stops[time_Stops.Length-1]);
-            //////////////////////////////////////////////////////////////////////////////////////////////////
+           
 
             Vivod_ostanovok.Visible = true;
             for (int k=0;k<coordinates.Length;k++) {
@@ -285,167 +266,6 @@ namespace Step_v0
 
     }
 
-    public class Train {
-        public string Nomer, Type;
-        public int Speed, Distance;
-
-        public static List<string> PoiskPoezda(string Str)
-        {
-            List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseTrain.txt");
-            int k = 0;
-            while (true)
-            {
-                string s = fs1.ReadLine();
-                if (s != null)
-                {
-                    if (s.IndexOf(Str) > -1)
-                    {
-                        collection.Add(s);
-                        k++;
-                    }
-                }
-                else
-                    break;
-            }
-            if (k == 0)
-            {
-                collection.Add("null");
-            }
-            fs1.Close();
-            return collection;
-        }
-
-        public static List<string> PoiskVsexPoezdov()
-        {
-            List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseTrain.txt");
-            while (true)
-            {
-                string s = fs1.ReadLine();
-                if (s != null)
-                {
-                    collection.Add(s);
-                }
-                else
-                    break;
-            }
-            fs1.Close();
-            return collection;
-        }
-
-        public static int AnalizInfo(int distance, int speed)
-        {
-            int time = distance / speed;
-            return time;
-        }
-    }
-
-    public class Vagon {
-        public static int PoiskX(int mesto_nomer, string mesto_bukva) {
-            int x,s=0;
-            if (mesto_bukva == "A")
-            {
-                x = 8;
-                return x;   
-            }
-            if (mesto_bukva == "B")
-            {
-                x=30;
-                return x;
-            }
-            if (mesto_bukva == "C")
-            {
-                x = 56;
-                return x;
-            }
-            if (mesto_bukva == "D")
-            {
-                x = 78;
-                return x;
-            }
-            return s;
-        }
-        public static int PoiskY(int mesto_nomer, string mesto_bukva) {
-            int y,s=0;
-            if (mesto_bukva == "A")
-            {
-                y = 8 + 29 * (mesto_nomer - 1);
-                return y;
-            }
-            if (mesto_bukva == "B")
-            {
-                y = 8 + 29 * (mesto_nomer - 1); ;
-                return y;
-            }
-            if (mesto_bukva == "C")
-            {
-                y = 8 + 29 * (mesto_nomer - 1); ;
-                return y;
-            }
-            if (mesto_bukva == "D")
-            {
-                y = 8 + 29 * (mesto_nomer - 1); ;
-                return y;
-            }
-            return s;
-        }
-
-    }
-
-    public class Passanger {
-        public string Surname, Name, Secondname;
-        public static List<string> PoiskVsexPasagirov()
-        { 
-         StreamReader fs2 = new StreamReader("basePassengers.txt");
-         List<string> collection = new List<string>();
-            while (true)
-            {
-                string s = fs2.ReadLine();
-                if (s != null)
-                {
-                    collection.Add(s);
-                }
-                else
-                    break;
-            }
-            fs2.Close();
-            return collection;
-        }
-
-        public static List<string> PoiskPasagirov(string Str)
-        {
-            StreamReader fs2 = new StreamReader("basePassengers.txt");
-            List<string> collection = new List<string>();
-            int k = 0;
-            while (true)
-            {
-                string s = fs2.ReadLine();
-                if (s != null)
-                {
-                    if (s.IndexOf(Str) > -1)
-                    {
-                        collection.Add(s);
-                        k++;
-                    }
-                }
-                else
-                    break;
-            }  
-            if (k == 0)
-            {
-                collection.Add("null");
-            }
-            fs2.Close();
-            return collection;
-        }
-    
-
-        public void AnalizInfo(string surname, string name, string secondname)
-        {
-            
-        }
-    }
 
     public class Massive {
         
