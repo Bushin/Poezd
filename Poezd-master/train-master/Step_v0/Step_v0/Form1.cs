@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using System.Xml;
 namespace Step_v0
 {
     public partial class Form1 : Form
@@ -18,42 +18,44 @@ namespace Step_v0
         string[] arr;
         int f = 0;
         string mesto_b;
-        int mesto_n,i;
+        int mesto_n, i;
+        Train t;
+        public List<Train> trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
                 f = 1;
-                textBox1.Enabled = true; textBox6.Enabled = true; textBox5.Enabled = true; textBox3.Enabled = false;textBox4.Enabled = false;textNomer.Enabled = false;
-                Vivod_data.Items.Clear();
-                Vivod_ostanovok.Items.Clear();
-                label1.ForeColor = Color.Gold;
-                label5.ForeColor = Color.White;
-                label6.ForeColor = Color.White;
+            textBox1.Enabled = true; textBox6.Enabled = true; textBox5.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textNomer.Enabled = false;
+            Vivod_data.Items.Clear();
+            Vivod_ostanovok.Items.Clear();
+            label1.ForeColor = Color.Gold;
+            label5.ForeColor = Color.White;
+            label6.ForeColor = Color.White;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
                 f = 2;
-                textBox3.Enabled = true;textBox4.Enabled = true;textBox1.Enabled = false;textBox6.Enabled = false;textBox5.Enabled = false;textNomer.Enabled = false;
-                Vivod_data.Items.Clear();
-                Vivod_ostanovok.Items.Clear();
-                label5.ForeColor = Color.Gold;
-                label1.ForeColor = Color.White;
-                label6.ForeColor = Color.White;
+            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; textBox5.Enabled = false; textNomer.Enabled = false;
+            Vivod_data.Items.Clear();
+            Vivod_ostanovok.Items.Clear();
+            label5.ForeColor = Color.Gold;
+            label1.ForeColor = Color.White;
+            label6.ForeColor = Color.White;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton3.Checked)
                 f = 3;
-                textNomer.Enabled = true; textBox3.Enabled = false;textBox4.Enabled = false;textBox1.Enabled = false;textBox6.Enabled = false;textBox5.Enabled = false;
-                Vivod_data.Items.Clear();
-                Vivod_ostanovok.Items.Clear();
-                label6.ForeColor = Color.Gold;
-                label1.ForeColor = Color.White;
-                label5.ForeColor = Color.White;
+            textNomer.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false; textBox5.Enabled = false;
+            Vivod_data.Items.Clear();
+            Vivod_ostanovok.Items.Clear();
+            label6.ForeColor = Color.Gold;
+            label1.ForeColor = Color.White;
+            label5.ForeColor = Color.White;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -70,45 +72,59 @@ namespace Step_v0
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
+        public void Create_Train_obj() {
+
+        }
+
+        public void PoiskVsexPoezdov()
+        {
+            XmlDocument Doc = new XmlDocument();
+            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\train-master\\Step_v0\\Step_v0\\Poezd.xml");
+            XmlElement Root = Doc.DocumentElement;
+            string nomer="",type="";
+            
+            List<string> distance1 = new List<string>();
+            List<string> time = new List<string>();
+            foreach (XmlNode node in Root)
+            {
+                if (node.Attributes.Count > 0)
+                {
+                    
+                    XmlNode attr = node.Attributes.GetNamedItem("name");
+                    if (attr != null)
+                       nomer = attr.Value;
+                }
+                foreach (XmlNode childnode in node.ChildNodes)
+                {
+                    if (childnode.Name == "type")
+                    {
+                        type = childnode.InnerText;
+                    }
+                    if (childnode.Name == "distanation")
+                    {     
+                        string[] info = childnode.InnerText.Split(' ');
+                       // for(int i=0;i<info.Length;i++)
+                       // distance1.Add(info[i]);
+                    }
+                    if (childnode.Name == "time")
+                    {
+                        time.Add(childnode.InnerText.Split(' ').ToString());
+                    }
+                }
+                t= new Train(nomer,type,info,time); 
+                trains.Add(t);
+                distance1.Clear();
+            }
+        }
+
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
-            string[] marsh;
             if (f == 3)
             {
-                Train train = new Train();
-                string str = textNomer.Text;
-                List<string> collection = new List<string>();
-                bool flag = true;
-                if (str == "")
-                {
-                    flag = false;
-                    collection = Train.PoiskVsexPoezdov();
-                    for (int i = 0; i < collection.Count; i++)
-                    {
-                        info = collection[i].Split('{');
-                        Vivod_data.Items.Add(info[0]);
-                    }
-                }
-                if (flag == true)
-                {
-                    collection = Train.PoiskPoezda(str);
-                    if (collection[0].Contains("null"))
-                    {
-                        MessageBox.Show("Не найденно совпадений");
-                        Vivod_data.Items.Add("Совпадений не найдено");
-                    }
-                    else
-                    {
-                        info = collection[i].Split('{');
-                        Vivod_data.Items.Add(info[i]);
-                        marsh = info[0].Split(' ');
-                        textBox4.Text = marsh[2];
-                        textBox3.Text = marsh[3];
-                        MMT.Visible = true;
-                    }
-                }
-                Vivod_data.Visible = true;
+                PoiskVsexPoezdov();
+                t = trains[0];
+                t.Vivod(ref Vivod_data, ref textBox4, ref textBox3, ref textNomer);
             }
             if (f == 1)
             {
@@ -147,14 +163,14 @@ namespace Step_v0
             }
             if (f == 2)
             {
-                Train train = new Train();
+                // Train train = new Train();string str1;
                 string str4 = textBox3.Text; string str3 = textBox4.Text;
                 List<string> collection = new List<string>();
                 bool flag = true;
                 if ((str3 == "") && (str4 == ""))
                 {
                     flag = false;
-                    collection = Train.PoiskVsexPoezdov();
+                    // str1 = Train.PoiskVsexPoezdov();
                     for (int i = 0; i < collection.Count; i++)
                     {
                         info = collection[i].Split('{');
@@ -164,7 +180,7 @@ namespace Step_v0
                 if (flag == true)
                 {
                     string str_ob = str3 + " " + str4;
-                    collection = Train.PoiskPoezda(str_ob);
+                   // collection = Train.PoiskPoezda(str_ob);
                     if (collection[0].Contains("null"))
                     {
                         MessageBox.Show("Не найденно совпадений");
@@ -198,7 +214,7 @@ namespace Step_v0
 
         private void MMT_Click(object sender, EventArgs e)
         {
-            int[] coordinates;string[] time_Stops;int timeBegginHour, timeBegginMin, timeEndHour, timeEndMin;
+            int[] coordinates; string[] time_Stops; int timeBegginHour, timeBegginMin, timeEndHour, timeEndMin;
             string[] Arr_Train = new string[Vivod_data.Items.Count];
             for (int j = 0; j < Vivod_data.Items.Count; j++)
             {
@@ -211,11 +227,11 @@ namespace Step_v0
             // Данные для передачи в MMT
             coordinates = Massive.Coordinates_fill(Arr_Train[i].Split('/'));
             time_Stops = Massive.Time_stops_fill(Arr_Train[i].Split('/'));
-            timeBegginHour = int.Parse(time_Stops[0]); timeBegginMin = int.Parse(time_Stops[1]); timeEndHour = int.Parse(time_Stops[time_Stops.Length-2]); timeEndMin = int.Parse(time_Stops[time_Stops.Length-1]);
-           
+            timeBegginHour = int.Parse(time_Stops[0]); timeBegginMin = int.Parse(time_Stops[1]); timeEndHour = int.Parse(time_Stops[time_Stops.Length - 2]); timeEndMin = int.Parse(time_Stops[time_Stops.Length - 1]);
+
 
             Vivod_ostanovok.Visible = true;
-            for (int k=0;k<coordinates.Length;k++) {
+            for (int k = 0; k < coordinates.Length; k++) {
                 Vivod_ostanovok.Items.Add(coordinates[k]);
             }
             for (int k = 0; k < time_Stops.Length; k++)
@@ -230,7 +246,14 @@ namespace Step_v0
             secondForm.ShowDialog();
         }
 
-        private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+    }
+
+
+
+    private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (f == 1)
             {

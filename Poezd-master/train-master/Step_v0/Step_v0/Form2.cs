@@ -20,7 +20,7 @@ namespace Step_v0
         string[] info;
         private void button1_Click(object sender, EventArgs e)
         {
-            Train train = new Train();string str_ob="";
+          /* // Train train = new Train();string str_ob="";
             List<string> collection = new List<string>();
             Random realRnd = new Random();int k = 0;
             string[] new_poezd = new string[6];
@@ -34,7 +34,7 @@ namespace Step_v0
             string[] time2 = new_poezd[5].Split(':');
             int avarage = (int.Parse(time2[0])*60+int.Parse(time2[1]))-(int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
             int current_time = (int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
-            collection = Train.PoiskPoezda(marsh);
+        //    collection = Train.PoiskPoezda(marsh);
 
             if (collection[0].Contains("null"))
             {
@@ -69,7 +69,7 @@ namespace Step_v0
             str_ob += '{' + ' ' + new_ostanovki + '}';
             StreamWriter sw = new StreamWriter("new.txt",true);
             sw.WriteLine(str_ob);
-            sw.Close();
+            sw.Close();*/
         }
     }
 }

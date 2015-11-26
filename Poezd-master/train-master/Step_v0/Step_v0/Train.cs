@@ -1,60 +1,51 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace Step_v0
 {
-    class Train
+    public class Train
     {
         public string Nomer, Type;
-        public int Speed, Distance;
+        public List<string>  Time;
+        public string[] Distance;
 
-        public static List<string> PoiskPoezda(string Str)
-        {
-            List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseTrain.txt");
-            int k = 0;
-            while (true)
-            {
-                string s = fs1.ReadLine();
-                if (s != null)
-                {
-                    if (s.IndexOf(Str) > -1)
-                    {
-                        collection.Add(s);
-                        k++;
-                    }
-                }
-                else
-                    break;
-            }
-            if (k == 0)
-            {
-                collection.Add("null");
-            }
-            fs1.Close();
-            return collection;
+        public Train(string n, string t, string[] ostanovki, List<string> Vreme_ostanovkok) {
+            Nomer = n;
+            Type = t;
+            Distance = ostanovki;
+            Time = Vreme_ostanovkok;
         }
 
-        public static List<string> PoiskVsexPoezdov()
-        {
+
+        public void Vivod(ref ListBox vivod, ref TextBox t4, ref TextBox t3, ref TextBox nomer) {
+            string str = nomer.Text;
             List<string> collection = new List<string>();
-            StreamReader fs1 = new StreamReader("baseTrain.txt");
-            while (true)
+            bool flag = true;
+            if (str == "")
             {
-                string s = fs1.ReadLine();
-                if (s != null)
+                flag = false;
+                vivod.Items.Add(Nomer + ' ' + Type + ' ' +Distance.Length);
+                if (flag == true)
                 {
-                    collection.Add(s);
+                    // collection = Train.PoiskPoezda(str);
+                    if (collection[0].Contains("null"))
+                    {
+                        vivod.Items.Add("Совпадений не найдено");
+                    }
+                    else
+                    {
+                        //info = collection[i].Split('{');
+                        // vivod.Items.Add(info[i]);
+                        // marsh = info[0].Split(' ');
+                        //t4.Text = marsh[2];
+                        //t3.Text = marsh[3];
+                    }
                 }
-                else
-                    break;
+                vivod.Visible = true;
             }
-            fs1.Close();
-            return collection;
         }
     }
 }
+
