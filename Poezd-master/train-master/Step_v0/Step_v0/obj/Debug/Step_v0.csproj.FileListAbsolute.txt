@@ -45,3 +45,4 @@ C:\Users\Жанна\Documents\Visual Studio 2015\Projects\Poezd-master\train-mas
 C:\Users\Жанна\Documents\Visual Studio 2015\Projects\Poezd-master\train-master\Step_v0\Step_v0\obj\Debug\Step_v0.Form2.resources
 C:\Users\Жанна\Documents\Visual Studio 2015\Projects\Poezd-master\train-master\Step_v0\Step_v0\obj\Debug\Step_v0.Properties.Resources.resources
 C:\Users\Жанна\Documents\Visual Studio 2015\Projects\Poezd-master\train-master\Step_v0\Step_v0\obj\Debug\Step_v0.csproj.GenerateResource.Cache
+C:\Users\Жанна\Documents\Visual Studio 2015\Projects\Poezd-master\train-master\Step_v0\Step_v0\obj\Debug\Step_v0.MMT.resources
