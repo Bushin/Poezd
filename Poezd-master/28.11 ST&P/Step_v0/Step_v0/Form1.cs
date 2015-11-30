@@ -111,7 +111,6 @@ namespace Step_v0
                             Hour = int.Parse(info1[0]);
                             Min = int.Parse(info1[1]);
                             DateTime dt = new DateTime();
-
                             dt = dt.AddHours(Hour);
                             dt = dt.AddMinutes(Min);
                             time.Add(dt);
@@ -208,25 +207,30 @@ namespace Step_v0
                         }
                     }
                 }
-                for (int i = 0; i < ostanovki.Count; i++)
-                {
-                    ost = ostanovki[i];
-                    ost.Vivod(ref Vivod_ostanovok);
-                }
+                
             }
             if (f == 1)
             {
-                string str = textBox1.Text;
-                if (str == "")
+                string str1 = textBox1.Text;string str2 = textBox6.Text; bool f = false;
+                string str_ob = str1 + str2;
+                if (str_ob == "")
                 {
-                    //f = true;
+                    f = true;
                     for (int i = 0; i < passangers.Count; i++)
                     {
                         pas = passangers[i];
                         pas.Vivod(ref Vivod_data);
                     }
                 }
-
+                if (f == false) {
+                    for (int i = 0; i < trains.Count; i++)
+                    {
+                       if ((passangers[i].Surname+passangers[i].Name).Contains(str_ob))
+                       {
+                           passangers[i].Vivod(ref Vivod_data);
+                       }
+                   }
+                }
             }
             if (f == 2)
             {
@@ -269,18 +273,16 @@ namespace Step_v0
 
     private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string curItem = Vivod_data.SelectedItem.ToString();
+            string[] info = curItem.Split(' ');
+            Vivod_ostanovok.Visible = true;
+            Vivod_ostanovok.Items.Clear();
             if (f == 1)
-            {
-                string curItem = Vivod_data.SelectedItem.ToString();
-                string[] info = curItem.Split(' ');
-                mesto_n = int.Parse(info[4]);
-                mesto_b = info[5];
+            {  
+                mesto_n = int.Parse(info[4]);mesto_b = info[5];
                 pictureBox.Visible = true;
                 pictureBox.BackColor = Color.Transparent;
-                label10.Visible = true;
-                label11.Visible = true;
-                label12.Visible = true;
-                label13.Visible = true;
+                label10.Visible = true;label11.Visible = true;label12.Visible = true;label13.Visible = true;  
                 pictureBoxs.Size = new Size(22, 22);
                 pictureBoxs.Load("seat.jpg");
                 pictureBoxs.BackColor = Color.Transparent;
@@ -291,7 +293,14 @@ namespace Step_v0
             }
             if ((f == 3) || (f == 2))
             {
- 
+                for (int i = 0; i <= current_trains.Count; i++)
+                {
+                    if (info[1] == trains[i].Nomer)
+                    {
+                        for (int j = 0; j < trains[i].Distance.Count; j++)
+                            Vivod_ostanovok.Items.Add(trains[i].Distance[j]);
+                    }
+                }
             }
         }
 
