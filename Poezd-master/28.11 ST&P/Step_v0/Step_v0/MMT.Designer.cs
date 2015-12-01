@@ -46,10 +46,11 @@
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(252, 184);
+            this.listBox1.Location = new System.Drawing.Point(285, 219);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
+            this.listBox1.Size = new System.Drawing.Size(52, 43);
             this.listBox1.TabIndex = 1;
             // 
             // button1

@@ -18,7 +18,7 @@ namespace Step_v0
         string mesto_b;
         int mesto_n;
         Train t;Stops ost; Passanger pas;
-        public List<Train> trains = new List<Train>();
+        public static List<Train> trains = new List<Train>();
         List<Stops> ostanovki = new List<Stops>();
         List<Passanger> passangers = new List<Passanger>();
         public List<Train> current_trains = new List<Train>();
@@ -27,7 +27,7 @@ namespace Step_v0
         {
             if (radioButton1.Checked)
                 f = 1;
-            textBox1.Enabled = true; textBox6.Enabled = true; textBox5.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textNomer.Enabled = false;
+            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textNomer.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label1.ForeColor = Color.Gold;
@@ -39,7 +39,7 @@ namespace Step_v0
         {
             if (radioButton2.Checked)
                 f = 2;
-            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; textBox5.Enabled = false; textNomer.Enabled = false;
+            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; textNomer.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label5.ForeColor = Color.Gold;
@@ -51,7 +51,7 @@ namespace Step_v0
         {
             if (radioButton3.Checked)
                 f = 3;
-            textNomer.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false; textBox5.Enabled = false;
+            textNomer.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label6.ForeColor = Color.Gold;
@@ -177,6 +177,7 @@ namespace Step_v0
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
+            bool k;
             if (f == 3)
             {
                 string str = textNomer.Text; bool f = false;
@@ -196,19 +197,22 @@ namespace Step_v0
                 {     
                     for (int j = 0; j < p.Length; j++)
                     {
+                        k = false;
                         for (int i = 0; i < trains.Count; i++)
                         {
                             if (p[j] == trains[i].Nomer)
                             {
-                                trains[i].last_ostanovka();
+                                trains[i].last_ostanovka();k = true;
                                 current_trains.Add(trains[i]);
                                 trains[i].Vivod(ref Vivod_data, ref textBox4, ref textBox3, ref textNomer);
-                            }
+                            }                 
                         }
+                        if (k == false)
+                             { Vivod_data.Items.Add("Поезда под помером " + p[j] + " не существует");k = false; }
                     }
-                }
-                
+                }  
             }
+
             if (f == 1)
             {
                 string str1 = textBox1.Text;string str2 = textBox6.Text; bool f = false;
@@ -229,9 +233,10 @@ namespace Step_v0
                        {
                            passangers[i].Vivod(ref Vivod_data);
                        }
-                   }
+                    }
                 }
             }
+
             if (f == 2)
             {
 
@@ -243,7 +248,7 @@ namespace Step_v0
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             Vivod_ostanovok.Visible = false;
-            textBox1.Clear(); textNomer.Clear(); textBox4.Clear(); textBox5.Clear(); textBox6.Clear(); textBox3.Clear();
+            textBox1.Clear(); textNomer.Clear(); textBox4.Clear(); textBox6.Clear(); textBox3.Clear();
             label10.Visible = false; label11.Visible = false; label12.Visible = false; label13.Visible = false;
             pictureBoxs.Image = null;
             pictureBox.Visible = false;
@@ -253,13 +258,13 @@ namespace Step_v0
 
         private void MMT_Click(object sender, EventArgs e)
         {
-            MMT MMT_Form = new MMT(trains,ostanovki);
+            MMT MMT_Form = new MMT(current_trains,ostanovki);
             MMT_Form.ShowDialog();
         }
 
         private void Editor_Click(object sender, EventArgs e)
         {
-            Form2 secondForm = new Form2();
+            Form2 secondForm = new Form2(trains,ostanovki);
             secondForm.ShowDialog();
         }
 

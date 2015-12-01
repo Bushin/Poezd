@@ -137,11 +137,9 @@
             // 
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
-            "Moscow",
-            "Tver",
-            "Sochi",
-            "Vladimir",
-            "Tyla"});
+            "Москва",
+            "Узуново",
+            "Тула"});
             this.comboBox2.Location = new System.Drawing.Point(237, 260);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
@@ -151,11 +149,9 @@
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
-            "Moscow",
-            "Tver",
-            "Sochi",
-            "Vladimir",
-            "Tyla"});
+            "Москва",
+            "Узуново",
+            "Тула"});
             this.comboBox3.Location = new System.Drawing.Point(237, 322);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);

@@ -119,7 +119,9 @@
     <Content Include="Ostanovki.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Passanger.xml" />
+    <Content Include="Passanger.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Poezd.xml">
       <SubType>Designer</SubType>
     </Content>

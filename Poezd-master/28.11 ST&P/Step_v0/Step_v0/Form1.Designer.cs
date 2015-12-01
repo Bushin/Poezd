@@ -33,12 +33,10 @@
             this.textNomer = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -102,16 +100,6 @@
             this.textBox4.Size = new System.Drawing.Size(116, 26);
             this.textBox4.TabIndex = 3;
             // 
-            // textBox5
-            // 
-            this.textBox5.Enabled = false;
-            this.textBox5.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textBox5.Location = new System.Drawing.Point(143, 177);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(116, 26);
-            this.textBox5.TabIndex = 4;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // textBox6
             // 
             this.textBox6.Enabled = false;
@@ -157,18 +145,6 @@
             this.label3.Size = new System.Drawing.Size(46, 24);
             this.label3.TabIndex = 8;
             this.label3.Text = "Имя";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
-            this.label4.ForeColor = System.Drawing.Color.Azure;
-            this.label4.Location = new System.Drawing.Point(32, 177);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 24);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Отчество";
             // 
             // label5
             // 
@@ -440,12 +416,10 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textNomer);
@@ -468,12 +442,10 @@
         public System.Windows.Forms.TextBox textNomer;
         public System.Windows.Forms.TextBox textBox3;
         public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.TextBox textBox5;
         public System.Windows.Forms.TextBox textBox6;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label label7;
