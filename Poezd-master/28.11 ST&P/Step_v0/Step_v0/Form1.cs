@@ -14,7 +14,7 @@ namespace Step_v0
             InitializeComponent();
         }
  
-        int f = 0;
+        int f = 0;int count = 0;
         string mesto_b;
         int mesto_n;
         Train t;Stops ost; Passanger pas;
@@ -23,11 +23,12 @@ namespace Step_v0
         List<Passanger> passangers = new List<Passanger>();
         public List<Train> current_trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
+        public static ComboBox c_b = new ComboBox();
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
                 f = 1;
-            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textNomer.Enabled = false;
+            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; c_b.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label1.ForeColor = Color.Gold;
@@ -39,7 +40,7 @@ namespace Step_v0
         {
             if (radioButton2.Checked)
                 f = 2;
-            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; textNomer.Enabled = false;
+            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; c_b.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label5.ForeColor = Color.Gold;
@@ -51,7 +52,7 @@ namespace Step_v0
         {
             if (radioButton3.Checked)
                 f = 3;
-            textNomer.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false;
+            c_b.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false;
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label6.ForeColor = Color.Gold;
@@ -76,7 +77,7 @@ namespace Step_v0
         public void PoiskVsexPoezdov()
         {
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Poezd.xml");
+            Doc.Load("Poezd.xml");
             XmlElement Root = Doc.DocumentElement;
             string nomer="",type="";
             int Hour, Min;
@@ -127,7 +128,7 @@ namespace Step_v0
         public void PoiskVsexostanovok()
         {
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Ostanovki.xml");
+            Doc.Load("Ostanovki.xml");
             XmlElement Root = Doc.DocumentElement;
             string name = "";int cor_x=0, cor_y=0;
             List<string> time = new List<string>();
@@ -156,7 +157,7 @@ namespace Step_v0
         public void PoiskVsexPasagirov()
         {
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Passanger.xml");
+            Doc.Load("Passanger.xml");
             XmlElement Root = Doc.DocumentElement;
             string n = "", s = "", nomer_poezda = "", nomer_vagona = "", mesto_nomer = "", mesto_bukva = "";
             List<string> time = new List<string>();
@@ -177,11 +178,9 @@ namespace Step_v0
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
-            bool k;
             if (f == 3)
             {
-                string str = textNomer.Text; bool f = false;
-                string[] p = str.Split(' ');
+                string str = c_b.Text; bool f = false;
                 if (str == "")
                 {
                     f = true;
@@ -190,26 +189,22 @@ namespace Step_v0
                         t = trains[i];
                         t.last_ostanovka();
                         current_trains.Add(trains[i]);
-                        t.Vivod(ref Vivod_data, ref textBox4, ref textBox3, ref textNomer);
+                        t.Vivod(ref Vivod_data, ref textBox4, ref textBox3,ref Vivod,ref count);
+                        count++;
                     }
                 }
                 if (f == false)
                 {     
-                    for (int j = 0; j < p.Length; j++)
-                    {
-                        k = false;
                         for (int i = 0; i < trains.Count; i++)
                         {
-                            if (p[j] == trains[i].Nomer)
+                            if (str == trains[i].Nomer)
                             {
-                                trains[i].last_ostanovka();k = true;
+                                trains[i].last_ostanovka();
                                 current_trains.Add(trains[i]);
-                                trains[i].Vivod(ref Vivod_data, ref textBox4, ref textBox3, ref textNomer);
+                                trains[i].Vivod(ref Vivod_data, ref textBox4, ref textBox3,ref Vivod,ref count);
+                                count++;
                             }                 
-                        }
-                        if (k == false)
-                             { Vivod_data.Items.Add("Поезда под помером " + p[j] + " не существует");k = false; }
-                    }
+                        }            
                 }  
             }
 
@@ -227,7 +222,7 @@ namespace Step_v0
                     }
                 }
                 if (f == false) {
-                    for (int i = 0; i < trains.Count; i++)
+                    for (int i = 0; i < passangers.Count; i++)
                     {
                        if ((passangers[i].Surname+passangers[i].Name).Contains(str_ob))
                        {
@@ -248,12 +243,13 @@ namespace Step_v0
             Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             Vivod_ostanovok.Visible = false;
-            textBox1.Clear(); textNomer.Clear(); textBox4.Clear(); textBox6.Clear(); textBox3.Clear();
+            textBox1.Clear(); c_b.Text=""; textBox4.Clear(); textBox6.Clear(); textBox3.Clear();
             label10.Visible = false; label11.Visible = false; label12.Visible = false; label13.Visible = false;
             pictureBoxs.Image = null;
             pictureBox.Visible = false;
             pictureBox.Refresh();
-            current_trains.Clear();
+            current_trains.Clear();count = 0;
+            Vivod.Rows.Clear();
         }
 
         private void MMT_Click(object sender, EventArgs e)
@@ -272,7 +268,11 @@ namespace Step_v0
         {
             PoiskVsexPoezdov();
             PoiskVsexostanovok();
-            PoiskVsexPasagirov();
+            PoiskVsexPasagirov();         
+            c_b.Location= new Point(801,73);c_b.Enabled = false;
+            this.Controls.Add(c_b);
+            for (int i=0;i<trains.Count;i++)
+            c_b.Items.Add(trains[i].Nomer);
         }
 
 
@@ -308,8 +308,5 @@ namespace Step_v0
                 }
             }
         }
-
-       
-
   }
 }

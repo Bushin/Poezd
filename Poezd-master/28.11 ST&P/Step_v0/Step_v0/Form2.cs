@@ -19,17 +19,18 @@ namespace Step_v0
         {
             this.InitializeComponent();
             list_ostanovok = ostanovki;
-            list_trains = trains;
+           // list_trains = trains;
         }
         List<Stops> list_ostanovok;
-        List<Train> list_trains;
+       // List<Train> list_trains;
         List<string> stops = new List<string>();
         List<DateTime> Time = new List<DateTime>();  
-        const string Path_file = "C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Poezd.xml";
+        const string Path_file = "Poezd.xml";
         private void button1_Click(object sender, EventArgs e)
         {
             Add_poezd();
-            CreateXML();       
+            CreateXML();
+            Form1.c_b.Items.Add(Form1.trains[Form1.trains.Count - 1].Nomer);
         }
 
         void CreateXML()
@@ -37,8 +38,11 @@ namespace Step_v0
             string dist = "";
             string time = "";
             for (int i = 0; i < Form1.trains[Form1.trains.Count-1].Distance.Count;i++) {
-                dist += Form1.trains[Form1.trains.Count - 1].Distance[i]+" ";
-                time += Form1.trains[Form1.trains.Count - 1].Time[i].ToString("HH:mm")+" ";
+                dist += Form1.trains[Form1.trains.Count - 1].Distance[i];
+                time += Form1.trains[Form1.trains.Count - 1].Time[i].ToString("HH:mm");
+                if (i < Form1.trains[Form1.trains.Count - 1].Distance.Count-1) {
+                    dist += " ";time += " ";
+                }
             }
             XDocument doc = XDocument.Load(Path_file);
             doc.Root.Add(new XElement("train",new XAttribute("name", Form1.trains[Form1.trains.Count - 1].Nomer),

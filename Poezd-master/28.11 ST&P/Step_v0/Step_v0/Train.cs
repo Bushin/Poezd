@@ -22,11 +22,16 @@ namespace Step_v0
         }
 
 
-        public void Vivod(ref ListBox vivod, ref TextBox t4, ref TextBox t3, ref TextBox nomer) {
-            string str = nomer.Text;
-                vivod.Items.Add(last_stops+' '+ Nomer + ' ' + Type + ' ' +Distance[0] +' '+Distance[Distance.Count-1] + ' '
-                    + Time[0].ToString("HH:mm") + ' ' + Time[Time.Count - 1].ToString("HH:mm"));
-                vivod.Visible = true;         
+        public void Vivod(ref ListBox vivod, ref TextBox t4, ref TextBox t3,ref DataGridView grid_vivod,ref int i) {
+            grid_vivod.Rows.Add();
+            grid_vivod.Rows[i].Cells[0].Value =last_stops;
+            grid_vivod.Rows[i].Cells[1].Value = Nomer;
+            grid_vivod.Rows[i].Cells[2].Value = Type;
+            grid_vivod.Rows[i].Cells[3].Value = Distance[0];
+            grid_vivod.Rows[i].Cells[4].Value = Distance[Distance.Count - 1];
+            grid_vivod.Rows[i].Cells[5].Value = Time[0].ToString("HH:mm");
+            grid_vivod.Rows[i].Cells[6].Value = Time[Time.Count - 1].ToString("HH:mm");
+            grid_vivod.Visible = true;       
         }
 
         public void last_ostanovka()

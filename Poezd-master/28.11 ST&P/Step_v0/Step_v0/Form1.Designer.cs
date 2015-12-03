@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textNomer = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -58,8 +57,17 @@
             this.label13 = new System.Windows.Forms.Label();
             this.Vivod_ostanovok = new System.Windows.Forms.ListBox();
             this.Editor = new System.Windows.Forms.Button();
+            this.Vivod = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Vivod)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -71,16 +79,6 @@
             this.textBox1.Size = new System.Drawing.Size(116, 26);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textNomer
-            // 
-            this.textNomer.Enabled = false;
-            this.textNomer.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textNomer.Location = new System.Drawing.Point(801, 73);
-            this.textNomer.Name = "textNomer";
-            this.textNomer.Size = new System.Drawing.Size(116, 26);
-            this.textNomer.TabIndex = 1;
-            this.textNomer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // textBox3
             // 
@@ -391,6 +389,60 @@
             this.Editor.UseVisualStyleBackColor = true;
             this.Editor.Click += new System.EventHandler(this.Editor_Click);
             // 
+            // Vivod
+            // 
+            this.Vivod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Vivod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7});
+            this.Vivod.Location = new System.Drawing.Point(420, 358);
+            this.Vivod.Name = "Vivod";
+            this.Vivod.Size = new System.Drawing.Size(698, 191);
+            this.Vivod.TabIndex = 33;
+            this.Vivod.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Последняя остановка";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Номер";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 60;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Тип";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 80;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Отправление";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Прибытие";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Время Отпр.";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Время приб.";
+            this.Column7.Name = "Column7";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -399,6 +451,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1426, 693);
+            this.Controls.Add(this.Vivod);
             this.Controls.Add(this.Editor);
             this.Controls.Add(this.Vivod_ostanovok);
             this.Controls.Add(this.label13);
@@ -422,7 +475,6 @@
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textNomer);
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "Form1";
@@ -431,6 +483,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Vivod)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,7 +492,6 @@
         #endregion
 
         public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textNomer;
         public System.Windows.Forms.TextBox textBox3;
         public System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.TextBox textBox6;
@@ -467,6 +519,14 @@
         public System.Windows.Forms.Label label13;
         public System.Windows.Forms.ListBox Vivod_ostanovok;
         public System.Windows.Forms.Button Editor;
+        private System.Windows.Forms.DataGridView Vivod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
     }
 }
 
