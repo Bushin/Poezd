@@ -121,13 +121,4 @@
   <data name="Base" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Base.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="Ostanovki" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Ostanovki.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Passanger" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Passanger.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Poezd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Poezd.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
 </root>

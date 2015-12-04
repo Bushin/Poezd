@@ -42,7 +42,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Receive_data1 = new System.Windows.Forms.Button();
-            this.Vivod_data = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -65,9 +64,20 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.vivod_pas = new System.Windows.Forms.DataGridView();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vivod_bil = new System.Windows.Forms.DataGridView();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Vivod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vivod_pas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vivod_bil)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -215,19 +225,6 @@
             this.Receive_data1.UseVisualStyleBackColor = true;
             this.Receive_data1.Click += new System.EventHandler(this.Receive_data1_Click);
             // 
-            // Vivod_data
-            // 
-            this.Vivod_data.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Vivod_data.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Vivod_data.FormattingEnabled = true;
-            this.Vivod_data.ItemHeight = 18;
-            this.Vivod_data.Location = new System.Drawing.Point(491, 358);
-            this.Vivod_data.Name = "Vivod_data";
-            this.Vivod_data.Size = new System.Drawing.Size(508, 274);
-            this.Vivod_data.TabIndex = 16;
-            this.Vivod_data.Visible = false;
-            this.Vivod_data.SelectedIndexChanged += new System.EventHandler(this.Vivod_data_SelectedIndexChanged);
-            // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
@@ -312,7 +309,7 @@
             this.pictureBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox.BackgroundImage")));
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox.Location = new System.Drawing.Point(1283, 305);
+            this.pictureBox.Location = new System.Drawing.Point(1321, 358);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(112, 343);
             this.pictureBox.TabIndex = 25;
@@ -324,7 +321,7 @@
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(1292, 289);
+            this.label10.Location = new System.Drawing.Point(1330, 342);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 13);
             this.label10.TabIndex = 26;
@@ -336,7 +333,7 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(1313, 289);
+            this.label11.Location = new System.Drawing.Point(1351, 342);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(15, 13);
             this.label11.TabIndex = 27;
@@ -348,7 +345,7 @@
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(1344, 289);
+            this.label12.Location = new System.Drawing.Point(1382, 342);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 13);
             this.label12.TabIndex = 28;
@@ -360,7 +357,7 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(1365, 289);
+            this.label13.Location = new System.Drawing.Point(1403, 342);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(16, 13);
             this.label13.TabIndex = 29;
@@ -373,7 +370,7 @@
             this.Vivod_ostanovok.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.Vivod_ostanovok.FormattingEnabled = true;
             this.Vivod_ostanovok.ItemHeight = 18;
-            this.Vivod_ostanovok.Location = new System.Drawing.Point(1038, 358);
+            this.Vivod_ostanovok.Location = new System.Drawing.Point(1098, 358);
             this.Vivod_ostanovok.Name = "Vivod_ostanovok";
             this.Vivod_ostanovok.Size = new System.Drawing.Size(227, 274);
             this.Vivod_ostanovok.TabIndex = 31;
@@ -381,7 +378,7 @@
             // 
             // Editor
             // 
-            this.Editor.Location = new System.Drawing.Point(1154, 86);
+            this.Editor.Location = new System.Drawing.Point(1283, 12);
             this.Editor.Name = "Editor";
             this.Editor.Size = new System.Drawing.Size(136, 67);
             this.Editor.TabIndex = 32;
@@ -391,6 +388,7 @@
             // 
             // Vivod
             // 
+            this.Vivod.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.Vivod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Vivod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -402,9 +400,10 @@
             this.Column7});
             this.Vivod.Location = new System.Drawing.Point(420, 358);
             this.Vivod.Name = "Vivod";
-            this.Vivod.Size = new System.Drawing.Size(698, 191);
+            this.Vivod.Size = new System.Drawing.Size(679, 274);
             this.Vivod.TabIndex = 33;
             this.Vivod.Visible = false;
+            this.Vivod.SelectionChanged += new System.EventHandler(this.Vivod_SelectionChanged);
             // 
             // Column1
             // 
@@ -443,6 +442,68 @@
             this.Column7.HeaderText = "Время приб.";
             this.Column7.Name = "Column7";
             // 
+            // vivod_pas
+            // 
+            this.vivod_pas.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.vivod_pas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.vivod_pas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column8,
+            this.Column9,
+            this.Column10});
+            this.vivod_pas.Location = new System.Drawing.Point(573, 358);
+            this.vivod_pas.Name = "vivod_pas";
+            this.vivod_pas.Size = new System.Drawing.Size(346, 150);
+            this.vivod_pas.TabIndex = 34;
+            this.vivod_pas.Visible = false;
+            this.vivod_pas.SelectionChanged += new System.EventHandler(this.vivod_pas_SelectionChanged);
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Фамилия";
+            this.Column8.Name = "Column8";
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Имя";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Номер поезда";
+            this.Column10.Name = "Column10";
+            // 
+            // vivod_bil
+            // 
+            this.vivod_bil.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.vivod_bil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.vivod_bil.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column11,
+            this.Column12,
+            this.Column13});
+            this.vivod_bil.Location = new System.Drawing.Point(1098, 358);
+            this.vivod_bil.Name = "vivod_bil";
+            this.vivod_bil.Size = new System.Drawing.Size(227, 274);
+            this.vivod_bil.TabIndex = 35;
+            this.vivod_bil.Visible = false;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Поезд";
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 60;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Вагон";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 60;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Место";
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 60;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -450,7 +511,9 @@
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1426, 693);
+            this.ClientSize = new System.Drawing.Size(1600, 816);
+            this.Controls.Add(this.vivod_bil);
+            this.Controls.Add(this.vivod_pas);
             this.Controls.Add(this.Vivod);
             this.Controls.Add(this.Editor);
             this.Controls.Add(this.Vivod_ostanovok);
@@ -462,7 +525,6 @@
             this.Controls.Add(this.MMT);
             this.Controls.Add(this.Clean);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Vivod_data);
             this.Controls.Add(this.Receive_data1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -484,6 +546,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Vivod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vivod_pas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vivod_bil)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,7 +568,6 @@
         public System.Windows.Forms.Label label8;
         public System.Windows.Forms.Label label9;
         public System.Windows.Forms.Button Receive_data1;
-        public System.Windows.Forms.ListBox Vivod_data;
         public System.ComponentModel.BackgroundWorker backgroundWorker1;
         public System.Windows.Forms.RadioButton radioButton1;
         public System.Windows.Forms.RadioButton radioButton2;
@@ -527,6 +590,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.DataGridView vivod_pas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridView vivod_bil;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
     }
 }
 

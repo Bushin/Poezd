@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bilet.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,17 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Base.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Ostanovki.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Passanger.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Poezd.xml">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

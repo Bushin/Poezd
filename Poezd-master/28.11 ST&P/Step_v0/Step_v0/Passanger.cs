@@ -11,21 +11,21 @@ namespace Step_v0
     class Passanger
     {
         public string Surname, Name, Nomer_poezda, Nomer_Vagona, Mesto_Nomer, Mesto_Bukva;
-
-        public Passanger(string n, string s, string nomer_poezda, string nomer_vagona, string mesto_nomer, string mesto_bukva)
+        public List<Bilet> Bilets= new List<Bilet>();
+        public Passanger(string n, string s, string nomer_poezda, List<Bilet> bilets)
         {
             Name = n;
             Surname = s;
             Nomer_poezda = nomer_poezda;
-            Nomer_Vagona = nomer_vagona;
-            Mesto_Nomer = mesto_nomer;
-            Mesto_Bukva = mesto_bukva;
+            Bilets = bilets;
         }
-        public void Vivod(ref ListBox vivod)
+        public void Vivod(ref DataGridView vivod_pas, ref int i)
         {
-            vivod.Items.Add(Name + ' ' + Surname + ' ' + Nomer_poezda + ' ' + Nomer_Vagona + ' '
-                + Mesto_Nomer + ' ' + Mesto_Bukva);
-            vivod.Visible = true;
+            vivod_pas.Rows.Add();
+            vivod_pas.Rows[i].Cells[0].Value = Surname;
+            vivod_pas.Rows[i].Cells[1].Value = Name;
+            vivod_pas.Rows[i].Cells[2].Value = Nomer_poezda;
+            vivod_pas.Visible = true;
         }
     }
   }

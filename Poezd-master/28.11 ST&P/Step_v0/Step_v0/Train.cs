@@ -22,7 +22,7 @@ namespace Step_v0
         }
 
 
-        public void Vivod(ref ListBox vivod, ref TextBox t4, ref TextBox t3,ref DataGridView grid_vivod,ref int i) {
+        public void Vivod(ref TextBox t4, ref TextBox t3,ref DataGridView grid_vivod,ref int i) {
             grid_vivod.Rows.Add();
             grid_vivod.Rows[i].Cells[0].Value =last_stops;
             grid_vivod.Rows[i].Cells[1].Value = Nomer;

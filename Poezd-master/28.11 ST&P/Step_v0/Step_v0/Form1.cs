@@ -14,13 +14,14 @@ namespace Step_v0
             InitializeComponent();
         }
  
-        int f = 0;int count = 0;
+        int f = 0;
         string mesto_b;
-        int mesto_n;
-        Train t;Stops ost; Passanger pas;
+        int mesto_n;int count = 0;
+        Train t;Stops ost; Passanger pas;Bilet bil;
         public static List<Train> trains = new List<Train>();
         List<Stops> ostanovki = new List<Stops>();
         List<Passanger> passangers = new List<Passanger>();
+        List<Bilet> bilets = new List<Bilet>();
         public List<Train> current_trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
         public static ComboBox c_b = new ComboBox();
@@ -28,12 +29,12 @@ namespace Step_v0
         {
             if (radioButton1.Checked)
                 f = 1;
-            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; c_b.Enabled = false;
-            Vivod_data.Items.Clear();
+            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; c_b.Enabled = false;;
             Vivod_ostanovok.Items.Clear();
             label1.ForeColor = Color.Gold;
             label5.ForeColor = Color.White;
             label6.ForeColor = Color.White;
+            Vivod.Visible = false;count = 0;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -41,7 +42,6 @@ namespace Step_v0
             if (radioButton2.Checked)
                 f = 2;
             textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; c_b.Enabled = false;
-            Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label5.ForeColor = Color.Gold;
             label1.ForeColor = Color.White;
@@ -53,11 +53,11 @@ namespace Step_v0
             if (radioButton3.Checked)
                 f = 3;
             c_b.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false;
-            Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             label6.ForeColor = Color.Gold;
             label1.ForeColor = Color.White;
             label5.ForeColor = Color.White;
+            vivod_pas.Visible = false;count = 0;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -171,7 +171,9 @@ namespace Step_v0
                         n = info[1]; s = info[0]; nomer_poezda = info[2]; nomer_vagona = info[3]; mesto_nomer = info[4]; mesto_bukva = info[5];
                     }
                 }
-                pas = new Passanger(n, s, nomer_poezda, nomer_vagona, mesto_nomer, mesto_bukva);
+                bil = new Bilet(nomer_poezda, nomer_vagona, mesto_nomer, mesto_bukva);
+                bilets.Add(bil);
+                pas = new Passanger(n, s, nomer_poezda, bilets);               
                 passangers.Add(pas);
             }
         }
@@ -189,7 +191,7 @@ namespace Step_v0
                         t = trains[i];
                         t.last_ostanovka();
                         current_trains.Add(trains[i]);
-                        t.Vivod(ref Vivod_data, ref textBox4, ref textBox3,ref Vivod,ref count);
+                        t.Vivod( ref textBox4, ref textBox3,ref Vivod,ref count);
                         count++;
                     }
                 }
@@ -201,7 +203,7 @@ namespace Step_v0
                             {
                                 trains[i].last_ostanovka();
                                 current_trains.Add(trains[i]);
-                                trains[i].Vivod(ref Vivod_data, ref textBox4, ref textBox3,ref Vivod,ref count);
+                                trains[i].Vivod( ref textBox4, ref textBox3,ref Vivod,ref count);
                                 count++;
                             }                 
                         }            
@@ -218,7 +220,8 @@ namespace Step_v0
                     for (int i = 0; i < passangers.Count; i++)
                     {
                         pas = passangers[i];
-                        pas.Vivod(ref Vivod_data);
+                        pas.Vivod(ref vivod_pas,ref count);
+                        count++;
                     }
                 }
                 if (f == false) {
@@ -226,7 +229,8 @@ namespace Step_v0
                     {
                        if ((passangers[i].Surname+passangers[i].Name).Contains(str_ob))
                        {
-                           passangers[i].Vivod(ref Vivod_data);
+                           passangers[i].Vivod(ref vivod_pas,ref count);
+                            count++;
                        }
                     }
                 }
@@ -240,7 +244,6 @@ namespace Step_v0
 
         private void Clean_Click(object sender, EventArgs e)
         {
-            Vivod_data.Items.Clear();
             Vivod_ostanovok.Items.Clear();
             Vivod_ostanovok.Visible = false;
             textBox1.Clear(); c_b.Text=""; textBox4.Clear(); textBox6.Clear(); textBox3.Clear();
@@ -249,7 +252,7 @@ namespace Step_v0
             pictureBox.Visible = false;
             pictureBox.Refresh();
             current_trains.Clear();count = 0;
-            Vivod.Rows.Clear();
+            Vivod.Rows.Clear();vivod_pas.Rows.Clear();vivod_bil.Visible = false;
         }
 
         private void MMT_Click(object sender, EventArgs e)
@@ -276,37 +279,48 @@ namespace Step_v0
         }
 
 
-    private void Vivod_data_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string curItem = Vivod_data.SelectedItem.ToString();
-            string[] info = curItem.Split(' ');
-            Vivod_ostanovok.Visible = true;
+        private void Vivod_SelectionChanged(object sender, EventArgs e)
+        {         
+            string curItem = Vivod[1, Vivod.CurrentRow.Index].Value.ToString();
             Vivod_ostanovok.Items.Clear();
-            if (f == 1)
-            {  
-                mesto_n = int.Parse(info[4]);mesto_b = info[5];
-                pictureBox.Visible = true;
-                pictureBox.BackColor = Color.Transparent;
-                label10.Visible = true;label11.Visible = true;label12.Visible = true;label13.Visible = true;  
-                pictureBoxs.Size = new Size(22, 22);
-                pictureBoxs.Load("seat.jpg");
-                pictureBoxs.BackColor = Color.Transparent;
-                int X = Vagon.PoiskX(mesto_n, mesto_b);
-                int Y = Vagon.PoiskY(mesto_n, mesto_b);
-                pictureBoxs.Location = new Point(X, Y);
-                pictureBox.Controls.Add(pictureBoxs);
-            }
             if ((f == 3) || (f == 2))
             {
-                for (int i = 0; i <= current_trains.Count; i++)
+                for (int i = 0; i < trains.Count; i++)
                 {
-                    if (info[1] == trains[i].Nomer)
+                    if (curItem == trains[i].Nomer)
                     {
                         for (int j = 0; j < trains[i].Distance.Count; j++)
                             Vivod_ostanovok.Items.Add(trains[i].Distance[j]);
                     }
                 }
-            }
+            Vivod_ostanovok.Visible = true;
+           }
         }
-  }
+
+        private void vivod_pas_SelectionChanged(object sender, EventArgs e)
+        {
+            string curSurname = vivod_pas[0, vivod_pas.CurrentRow.Index].Value.ToString();
+            string curName = vivod_pas[1, vivod_pas.CurrentRow.Index].Value.ToString();
+            vivod_bil.Rows.Clear();
+            string Fio = ""; Fio+= curSurname + curName;
+            for (int i = 0; i < passangers.Count; i++) {
+                if (Fio==(passangers[i].Surname+passangers[i].Name)) {
+                    bilets[i].Vivod(ref vivod_bil,ref i);
+                    mesto_n = int.Parse(bilets[i].Mesto_Nomer); mesto_b = bilets[i].Mesto_Bukva;
+                    pictureBox.Visible = true;
+                    pictureBox.BackColor = Color.Transparent;
+                    label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
+                    pictureBoxs.Size = new Size(22, 22);
+                    pictureBoxs.Load("seat.jpg");
+                    pictureBoxs.BackColor = Color.Transparent;
+                    int X = Vagon.PoiskX(mesto_n, mesto_b);
+                    int Y = Vagon.PoiskY(mesto_n, mesto_b);
+                    pictureBoxs.Location = new Point(X, Y);
+                    pictureBox.Controls.Add(pictureBoxs);
+                }
+            }           
+        }
+
+
+    }
 }
