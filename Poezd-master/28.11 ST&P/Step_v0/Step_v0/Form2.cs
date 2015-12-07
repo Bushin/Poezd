@@ -28,14 +28,14 @@ namespace Step_v0
         const string Path_file = "Poezd.xml";
         private void button1_Click(object sender, EventArgs e)
         {
-            Add_poezd();
-            CreateXML();
+           // Add_poezd();
+          //  CreateXML();
             Form1.c_b.Items.Add(Form1.trains[Form1.trains.Count - 1].Nomer);
         }
 
         void CreateXML()
         {
-            string dist = "";
+        /*    string dist = "";
             string time = "";
             for (int i = 0; i < Form1.trains[Form1.trains.Count-1].Distance.Count;i++) {
                 dist += Form1.trains[Form1.trains.Count - 1].Distance[i];
@@ -88,7 +88,7 @@ namespace Step_v0
                 Time.Add(dt);      
             }
            Train t = new Train(nomer, type, stops, Time);
-            Form1.trains.Add(t);
+            Form1.trains.Add(t);*/
         }
 
 

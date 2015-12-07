@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Step_v0
 {
-    class Distanation
+   public class Distanation
     {
         public string ID,Start,End;
         public List<Stops> Ostanovki = new List<Stops>();

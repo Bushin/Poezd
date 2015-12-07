@@ -9,7 +9,7 @@ namespace Step_v0
 {
     class Bilet
     {
-        public string Surname, Name, Nomer_poezda, Nomer_Vagona, Mesto_Nomer, Mesto_Bukva;
+        public string Nomer_poezda, Nomer_Vagona, Mesto_Nomer, Mesto_Bukva;
 
         public Bilet(string nomer_poezda, string nomer_vagona, string mesto_nomer, string mesto_bukva)
         {

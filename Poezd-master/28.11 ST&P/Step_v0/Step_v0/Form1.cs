@@ -17,9 +17,9 @@ namespace Step_v0
         int f = 0;
         string mesto_b;
         int mesto_n;int count = 0;
-        Train t;Stops ost; Passanger pas;Bilet bil;
+        Train t; Passanger pas;Bilet bil;Distanation dist;
         public static List<Train> trains = new List<Train>();
-        List<Stops> ostanovki = new List<Stops>();
+        public static List<Distanation> marshruti = new List<Distanation>();
         List<Passanger> passangers = new List<Passanger>();
         List<Bilet> bilets = new List<Bilet>();
         public List<Train> current_trains = new List<Train>();
@@ -79,7 +79,7 @@ namespace Step_v0
             XmlDocument Doc = new XmlDocument();
             Doc.Load("Poezd.xml");
             XmlElement Root = Doc.DocumentElement;
-            string nomer="",type="";
+            string nomer="",type="",id="";
             int Hour, Min;
             foreach (XmlNode node in Root)
             {
@@ -98,10 +98,8 @@ namespace Step_v0
                         type = childnode.InnerText;
                     }
                     if (childnode.Name == "distanation")
-                    {     
-                        string[] info = childnode.InnerText.Split(' ');
-                        for(int i=0;i<info.Length;i++)
-                        distance.Add(info[i]);
+                    {
+                        id = childnode.InnerText;
                     }
                     if (childnode.Name == "time")
                     {
@@ -118,15 +116,16 @@ namespace Step_v0
                         }
                     }
                 }
-                t= new Train(nomer,type,distance,time);           
+                t= new Train(nomer,type,id,time);           
                 trains.Add(t);
                 distance = null;
                 time = null;
             }
         }
 
-        public void PoiskVsexostanovok()
+        public static Stops Poiskostanovoki(string name_ostanovki)
         {
+            Stops ost;
             XmlDocument Doc = new XmlDocument();
             Doc.Load("Ostanovki.xml");
             XmlElement Root = Doc.DocumentElement;
@@ -140,17 +139,60 @@ namespace Step_v0
                     if (attr != null)
                         name = attr.Value;
                 }
+                if (name_ostanovki == name)
+                {
+                    foreach (XmlNode childnode in node.ChildNodes)
+                    {
+                        if (childnode.Name == "info")
+                        {
+                            string[] info = childnode.InnerText.Split(' ');
+                            cor_x = int.Parse(info[0]);
+                            cor_y = int.Parse(info[1]);
+                        }
+                    }
+                    return ost = new Stops(name, cor_x, cor_y);
+                }
+            }
+            return ost = new Stops("null", 0, 0);
+        }
+
+        public void PoiskVsexmarshrutov()
+        {
+            XmlDocument Doc = new XmlDocument();
+            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Distanation.xml");
+            XmlElement Root = Doc.DocumentElement;
+            string start = "", end = "",id="";
+            foreach (XmlNode node in Root)
+            {
+                List<Stops> ostanovki = new List<Stops>(); 
+                if (node.Attributes.Count > 0)
+                {
+                    XmlNode attr = node.Attributes.GetNamedItem("id");
+                    if (attr != null)
+                        id = attr.Value;
+                }
                 foreach (XmlNode childnode in node.ChildNodes)
                 {
-                    if (childnode.Name == "info")
+                    if (childnode.Name == "Start")
+                    {
+                        start = childnode.InnerText;
+                    }
+                    if (childnode.Name == "End")
+                    {
+                        end = childnode.InnerText;        
+                    }
+                    if (childnode.Name == "stops")
                     {
                         string[] info = childnode.InnerText.Split(' ');
-                        cor_x = int.Parse(info[0]);
-                        cor_y = int.Parse(info[1]);
+                        for (int i = 0; i < info.Length; i++)
+                        {                          
+                            ostanovki.Add(Poiskostanovoki(info[i]));
+                        }
                     }
                 }
-                ost = new Stops(name, cor_x, cor_y);
-                ostanovki.Add(ost);
+                dist = new Distanation(id,start,end,ostanovki);
+                marshruti.Add(dist);
+                ostanovki  = null;
             }
         }
 
@@ -188,11 +230,16 @@ namespace Step_v0
                     f = true;
                     for (int i = 0; i < trains.Count; i++)
                     {
-                        t = trains[i];
-                        t.last_ostanovka();
-                        current_trains.Add(trains[i]);
-                        t.Vivod( ref textBox4, ref textBox3,ref Vivod,ref count);
-                        count++;
+                        for (int j = 0; j < marshruti.Count; j++)
+                        {
+                            if (trains[i].ID == marshruti[j].ID)
+                            {
+                                trains[i].last_ostanovka(marshruti[j]);
+                                current_trains.Add(trains[i]);
+                                trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
+                                count++;
+                            }
+                        }
                     }
                 }
                 if (f == false)
@@ -201,10 +248,16 @@ namespace Step_v0
                         {
                             if (str == trains[i].Nomer)
                             {
-                                trains[i].last_ostanovka();
-                                current_trains.Add(trains[i]);
-                                trains[i].Vivod( ref textBox4, ref textBox3,ref Vivod,ref count);
-                                count++;
+                                for (int j = 0; j < marshruti.Count; j++)
+                                {
+                                    if (trains[i].ID == marshruti[j].ID)
+                                    {
+                                        trains[i].last_ostanovka(marshruti[j]);
+                                        current_trains.Add(trains[i]);
+                                        trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
+                                        count++;
+                                    }
+                                }
                             }                 
                         }            
                 }  
@@ -257,20 +310,20 @@ namespace Step_v0
 
         private void MMT_Click(object sender, EventArgs e)
         {
-            MMT MMT_Form = new MMT(current_trains,ostanovki);
-            MMT_Form.ShowDialog();
+          /*  MMT MMT_Form = new MMT(current_trains,ostanovki);
+            MMT_Form.ShowDialog();*/
         }
 
         private void Editor_Click(object sender, EventArgs e)
         {
-            Form2 secondForm = new Form2(trains,ostanovki);
-            secondForm.ShowDialog();
+           /* Form2 secondForm = new Form2(trains,ostanovki);
+            secondForm.ShowDialog();*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PoiskVsexPoezdov();
-            PoiskVsexostanovok();
+            PoiskVsexmarshrutov();
+            PoiskVsexPoezdov(); 
             PoiskVsexPasagirov();         
             c_b.Location= new Point(801,73);c_b.Enabled = false;
             this.Controls.Add(c_b);
@@ -281,7 +334,7 @@ namespace Step_v0
 
         private void Vivod_SelectionChanged(object sender, EventArgs e)
         {         
-            string curItem = Vivod[1, Vivod.CurrentRow.Index].Value.ToString();
+           /* string curItem = Vivod[1, Vivod.CurrentRow.Index].Value.ToString();
             Vivod_ostanovok.Items.Clear();
             if ((f == 3) || (f == 2))
             {
@@ -289,12 +342,12 @@ namespace Step_v0
                 {
                     if (curItem == trains[i].Nomer)
                     {
-                        for (int j = 0; j < trains[i].Distance.Count; j++)
+                        for (int j = 0; j < trains[i]..Count; j++)
                             Vivod_ostanovok.Items.Add(trains[i].Distance[j]);
                     }
                 }
             Vivod_ostanovok.Visible = true;
-           }
+           }*/
         }
 
         private void vivod_pas_SelectionChanged(object sender, EventArgs e)
