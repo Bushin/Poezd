@@ -20,7 +20,7 @@ namespace Step_v0
         }
         public void Vivod(ref DataGridView Vivod_bil, ref int i)
         {
-            //Vivod_bil.Rows.Add();
+            Vivod_bil.Rows.Add();
             Vivod_bil.Rows[0].Cells[0].Value = Nomer_poezda;
             Vivod_bil.Rows[0].Cells[1].Value = Nomer_Vagona;
             Vivod_bil.Rows[0].Cells[2].Value = Mesto_Nomer + " " + Mesto_Bukva;

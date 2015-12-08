@@ -15,70 +15,100 @@ namespace Step_v0
 {
     public partial class Form2 : Form
     {
-        public Form2(List<Train> trains, List<Stops> ostanovki)
+        public Form2(List<Train> trains)
         {
             this.InitializeComponent();
-            list_ostanovok = ostanovki;
-           // list_trains = trains;
+
         }
-        List<Stops> list_ostanovok;
-       // List<Train> list_trains;
+        int f = 0,count_stops=0;
         List<string> stops = new List<string>();
         List<DateTime> Time = new List<DateTime>();  
         const string Path_file = "Poezd.xml";
         private void button1_Click(object sender, EventArgs e)
         {
-           // Add_poezd();
-          //  CreateXML();
+            if (f == 1)
+            { 
+            Add_poezd();
+            CreateXMLPoezd();
             Form1.c_b.Items.Add(Form1.trains[Form1.trains.Count - 1].Nomer);
+                MessageBox.Show("Поезд "+ Form1.trains[Form1.trains.Count - 1].Nomer + " добавлен");
+            }
+            if (f == 2)
+            {
+                Add_distanation();
+            }
+
         }
 
-        void CreateXML()
+        void Add_distanation()
         {
-        /*    string dist = "";
+            string id = textBox4.Text, start = comboBox2.Text, end = comboBox3.Text;int s=0, e=0,index1,index2;
+            Stops ost;
+            XmlDocument Doc = new XmlDocument();
+            Doc.Load("Ostanovki.xml");
+            XmlElement Root = Doc.DocumentElement;
+            string name = ""; int cor_x = 0, cor_y = 0;
+            List<string> time = new List<string>();
+            foreach (XmlNode node in Root)
+            {
+                if (node.Attributes.Count > 0)
+                {
+                    XmlNode attr = node.Attributes.GetNamedItem("name");
+                    if (attr != null)
+                    {
+                        if (start == attr.Value)
+                        {
+                            index1 = s;
+                        }else { s++; }
+                        if (end == attr.Value)
+                        {
+                            index2 = e;
+                        }
+                        else { e++; }                       
+                    }
+                }                             
+            } 
+                    
+        }
+
+        void CreateXMLPoezd()
+        {
             string time = "";
-            for (int i = 0; i < Form1.trains[Form1.trains.Count-1].Distance.Count;i++) {
-                dist += Form1.trains[Form1.trains.Count - 1].Distance[i];
+            for (int i = 0; i < count_stops;i++) {
                 time += Form1.trains[Form1.trains.Count - 1].Time[i].ToString("HH:mm");
-                if (i < Form1.trains[Form1.trains.Count - 1].Distance.Count-1) {
-                    dist += " ";time += " ";
+                if (i < count_stops-1) {
+                   time += " ";
                 }
             }
             XDocument doc = XDocument.Load(Path_file);
             doc.Root.Add(new XElement("train",new XAttribute("name", Form1.trains[Form1.trains.Count - 1].Nomer),
                 new XElement("type", Form1.trains[Form1.trains.Count - 1].Type),
-                new XElement("distanation", dist),
+                new XElement("distanation", Form1.trains[Form1.trains.Count - 1].ID),
                 new XElement("time", time)));
             doc.Save(Path_file);
         }
 
         void Add_poezd() {
             Random realRnd = new Random();
-            string nomer = textBox1.Text;
-            string type = comboBox1.Text;
-            int i=0;
-            for (i = 0; i < list_ostanovok.Count; i++) {
-                if (comboBox2.Text == list_ostanovok[i].Name) {
-                    stops.Add(list_ostanovok[i].Name);
-                    while (comboBox3.Text != list_ostanovok[i].Name)
-                    {
-                        i++;
-                        stops.Add(list_ostanovok[i].Name);
-                    }break;
+            string nomer = textBox1.Text, type = comboBox1.Text,id=comboBox4.Text;
+            int i = 0;
+            for (i = 0; i < Form1.marshruti.Count-1; i++) {
+                if (id == Form1.marshruti[i].ID) {
+                    count_stops = Form1.marshruti[i].Ostanovki.Count;
                 }
             }
             string[] time1 = textBox2.Text.Split(':');
             string[] time2 = textBox3.Text.Split(':');
             int avarage = (int.Parse(time2[0]) * 60 + int.Parse(time2[1])) - (int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
             int current_time = (int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
-            for (int j = 0; j < stops.Count; j++) {
+            for (int j = 0; j < count_stops; j++) {
                 if (j != 0)
                 {
-                    if (j == stops.Count - 1)
+                    if (j == count_stops - 1)
                     {
                         current_time = (int.Parse(time2[0]) * 60 + int.Parse(time2[1]));
                     } else
-                    current_time += (realRnd.Next(40, avarage / 8));
+                    current_time += (realRnd.Next(avarage/8-20, avarage / 8));
                 }else current_time += 0;
                 DateTime dt = new DateTime();
                 int Hour = ((current_time) / 60);
@@ -87,61 +117,50 @@ namespace Step_v0
                 dt = dt.AddMinutes(Min);
                 Time.Add(dt);      
             }
-           Train t = new Train(nomer, type, stops, Time);
-            Form1.trains.Add(t);*/
+           Train t = new Train(nomer, type, id, Time);
+            Form1.trains.Add(t);
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            f = 2;
+            textBox4.Enabled = true;comboBox2.Enabled = true;comboBox3.Enabled = true;
+            textBox1.Enabled = false; textBox2.Enabled = false; textBox3.Enabled = false; comboBox1.Enabled = false; comboBox4.Enabled = false;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            f = 1;
+            textBox1.Enabled = true;textBox2.Enabled = true;textBox3.Enabled = true;comboBox1.Enabled = true;comboBox4.Enabled = true;
+            textBox4.Enabled = false; comboBox2.Enabled = false; comboBox3.Enabled = false;
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            f = 3;
+
+        }
+
+        private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();listBox1.Visible = true;
+            string cutItem = comboBox4.SelectedItem.ToString();
+            for(int i = 0; i < Form1.marshruti.Count; i++)
+            {
+                if (cutItem == Form1.marshruti[i].ID) {
+                    for (int j = 0; j < Form1.marshruti[i].Ostanovki.Count; j++) {
+                        listBox1.Items.Add(Form1.marshruti[i].Ostanovki[j].Name);
+                    }
+                }
+            }
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Form1.marshruti.Count - 1; i++)
+                comboBox4.Items.Add(Form1.marshruti[i].ID);
         }
 
 
-        /* // Train train = new Train();string str_ob="";
-          List<string> collection = new List<string>();
-          Random realRnd = new Random();int k = 0;
-          string[] new_poezd = new string[6];
-          string new_ostanovki = "",time_ost=textBox2.Text; 
-          new_poezd[0] = textBox1.Text;
-          new_poezd[1] = comboBox1.Text;
-          new_poezd[2] = comboBox2.Text; new_poezd[3] = comboBox3.Text;string marsh = new_poezd[2] + ' ' + new_poezd[3];
-          new_poezd[4] = textBox2.Text;
-          new_poezd[5] = textBox3.Text;
-          string[] time1 = new_poezd[4].Split(':');
-          string[] time2 = new_poezd[5].Split(':');
-          int avarage = (int.Parse(time2[0])*60+int.Parse(time2[1]))-(int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
-          int current_time = (int.Parse(time1[0]) * 60 + int.Parse(time1[1]));
-      //    collection = Train.PoiskPoezda(marsh);
-
-          if (collection[0].Contains("null"))
-          {
-              MessageBox.Show("Ехать с пересадкой");
-          }
-          else
-          {
-              info = collection[0].Split(' ');
-              for (int i = 7; i < info.Count()-3; i=i+3) {
-                   current_time += (realRnd.Next(40, avarage/8));
-              if (i == 7){
-                      time_ost = new_poezd[4]; k++;
-                      new_ostanovki += info[i] + ' ' + '(' + time_ost + ')' + ' ' + '-' + ' ';
-                  }
-              if (i == info.Count() - 4) {
-                      time_ost = new_poezd[5]; k++;
-                      new_ostanovki += info[i] + ' ' + '(' + time_ost + ')' + ' ';
-
-                  }
-                  if (k == 0) {
-                      time_ost += ((current_time) / 60).ToString() + ':' + ((current_time) % 60).ToString();
-                      new_ostanovki += info[i] + ' ' + '(' + time_ost + ')' + ' '+'-'+' ';
-                  }
-                  k = 0;
-
-                  time_ost = "";
-              }
-          }
-          for (int i = 0; i < new_poezd.Length; i++) {
-              str_ob += new_poezd[i] + ' ';         
-          }
-          str_ob += '{' + ' ' + new_ostanovki + '}';
-          StreamWriter sw = new StreamWriter("new.txt",true);
-          sw.WriteLine(str_ob);
-          sw.Close();*/
-    
     }
 }

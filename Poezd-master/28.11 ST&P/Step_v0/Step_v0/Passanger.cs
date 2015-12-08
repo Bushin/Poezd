@@ -10,7 +10,7 @@ namespace Step_v0
 {
     class Passanger
     {
-        public string Surname, Name, Nomer_poezda, Nomer_Vagona, Mesto_Nomer, Mesto_Bukva;
+        public string Surname, Name, Nomer_poezda;
         public List<Bilet> Bilets= new List<Bilet>();
         public Passanger(string n, string s, string nomer_poezda, List<Bilet> bilets)
         {
@@ -21,7 +21,11 @@ namespace Step_v0
         }
         public void Vivod(ref DataGridView vivod_pas, ref int i)
         {
-            vivod_pas.Rows.Add();
+            if (Form1.K > 0)
+            {
+                vivod_pas.Rows.Add();
+            }
+            Form1.K++;
             vivod_pas.Rows[i].Cells[0].Value = Surname;
             vivod_pas.Rows[i].Cells[1].Value = Name;
             vivod_pas.Rows[i].Cells[2].Value = Nomer_poezda;

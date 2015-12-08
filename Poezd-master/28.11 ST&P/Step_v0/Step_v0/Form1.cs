@@ -16,7 +16,7 @@ namespace Step_v0
  
         int f = 0;
         string mesto_b;
-        int mesto_n;int count = 0;
+        int mesto_n;int count = 0;public static int K = 0;
         Train t; Passanger pas;Bilet bil;Distanation dist;
         public static List<Train> trains = new List<Train>();
         public static List<Distanation> marshruti = new List<Distanation>();
@@ -34,7 +34,7 @@ namespace Step_v0
             label1.ForeColor = Color.Gold;
             label5.ForeColor = Color.White;
             label6.ForeColor = Color.White;
-            Vivod.Visible = false;count = 0;
+            Vivod.Visible = false;count = 0;K = 0;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace Step_v0
             Vivod_ostanovok.Items.Clear();
             label5.ForeColor = Color.Gold;
             label1.ForeColor = Color.White;
-            label6.ForeColor = Color.White;
+            label6.ForeColor = Color.White;K = 0;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace Step_v0
             label6.ForeColor = Color.Gold;
             label1.ForeColor = Color.White;
             label5.ForeColor = Color.White;
-            vivod_pas.Visible = false;count = 0;
+            vivod_pas.Visible = false;count = 0;K = 0;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -130,7 +130,6 @@ namespace Step_v0
             Doc.Load("Ostanovki.xml");
             XmlElement Root = Doc.DocumentElement;
             string name = "";int cor_x=0, cor_y=0;
-            List<string> time = new List<string>();
             foreach (XmlNode node in Root)
             {                
                 if (node.Attributes.Count > 0)
@@ -202,7 +201,6 @@ namespace Step_v0
             Doc.Load("Passanger.xml");
             XmlElement Root = Doc.DocumentElement;
             string n = "", s = "", nomer_poezda = "", nomer_vagona = "", mesto_nomer = "", mesto_bukva = "";
-            List<string> time = new List<string>();
             foreach (XmlNode node in Root)
             {
                 foreach (XmlNode childnode in node.ChildNodes)
@@ -224,7 +222,7 @@ namespace Step_v0
         {
             if (f == 3)
             {
-                string str = c_b.Text; bool f = false;
+                string str = c_b.Text; bool f = false;Vivod.Rows.Add();
                 if (str == "")
                 {
                     f = true;
@@ -263,9 +261,51 @@ namespace Step_v0
                 }  
             }
 
+            if (f == 2)
+            {
+                string str1 = textBox4.Text, str2 = textBox3.Text;bool f = false;Vivod.Rows.Add();
+                string str_ob = str1 + str2;
+                if (str_ob == "")
+                {
+                    f = true;
+                    for (int i = 0; i < trains.Count; i++)
+                    {
+                        for (int j = 0; j < marshruti.Count; j++)
+                        {
+                            if (trains[i].ID == marshruti[j].ID)
+                            {
+                                trains[i].last_ostanovka(marshruti[j]);
+                                current_trains.Add(trains[i]);
+                                trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
+                                count++;
+                            }
+                        }
+                    }
+                }
+                if (f == false)
+                {
+                    for (int i = 0; i < marshruti.Count; i++)
+                    {
+                        if ((marshruti[i].Start+marshruti[i].End).Contains(str_ob))
+                        {
+                            for (int j = 0; j < trains.Count; j++)
+                            {
+                                if (trains[j].ID == marshruti[i].ID)
+                                {
+                                    trains[j].last_ostanovka(marshruti[i]);
+                                    current_trains.Add(trains[j]);
+                                    trains[j].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[i].Start, ref marshruti[i].End);
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (f == 1)
             {
-                string str1 = textBox1.Text;string str2 = textBox6.Text; bool f = false;
+                string str1 = textBox1.Text;string str2 = textBox6.Text; bool f = false; vivod_pas.Rows.Add();vivod_bil.Rows.Add();
                 string str_ob = str1 + str2;
                 if (str_ob == "")
                 {
@@ -288,11 +328,6 @@ namespace Step_v0
                     }
                 }
             }
-
-            if (f == 2)
-            {
-
-            }
         }
 
         private void Clean_Click(object sender, EventArgs e)
@@ -305,19 +340,19 @@ namespace Step_v0
             pictureBox.Visible = false;
             pictureBox.Refresh();
             current_trains.Clear();count = 0;
-            Vivod.Rows.Clear();vivod_pas.Rows.Clear();vivod_bil.Visible = false;
+            Vivod.Rows.Clear();vivod_pas.Rows.Clear();vivod_bil.Visible = false;K = 0;
         }
 
         private void MMT_Click(object sender, EventArgs e)
         {
-          /*  MMT MMT_Form = new MMT(current_trains,ostanovki);
-            MMT_Form.ShowDialog();*/
+            MMT MMT_Form = new MMT(current_trains,marshruti);
+            MMT_Form.ShowDialog();
         }
 
         private void Editor_Click(object sender, EventArgs e)
         {
-           /* Form2 secondForm = new Form2(trains,ostanovki);
-            secondForm.ShowDialog();*/
+            Form2 secondForm = new Form2(trains);
+            secondForm.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -352,24 +387,27 @@ namespace Step_v0
 
         private void vivod_pas_SelectionChanged(object sender, EventArgs e)
         {
+            if (K > 0) { 
             string curSurname = vivod_pas[0, vivod_pas.CurrentRow.Index].Value.ToString();
             string curName = vivod_pas[1, vivod_pas.CurrentRow.Index].Value.ToString();
             vivod_bil.Rows.Clear();
             string Fio = ""; Fio+= curSurname + curName;
             for (int i = 0; i < passangers.Count; i++) {
-                if (Fio==(passangers[i].Surname+passangers[i].Name)) {
-                    bilets[i].Vivod(ref vivod_bil,ref i);
-                    mesto_n = int.Parse(bilets[i].Mesto_Nomer); mesto_b = bilets[i].Mesto_Bukva;
-                    pictureBox.Visible = true;
-                    pictureBox.BackColor = Color.Transparent;
-                    label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
-                    pictureBoxs.Size = new Size(22, 22);
-                    pictureBoxs.Load("seat.jpg");
-                    pictureBoxs.BackColor = Color.Transparent;
-                    int X = Vagon.PoiskX(mesto_n, mesto_b);
-                    int Y = Vagon.PoiskY(mesto_n, mesto_b);
-                    pictureBoxs.Location = new Point(X, Y);
-                    pictureBox.Controls.Add(pictureBoxs);
+                    if (Fio == (passangers[i].Surname + passangers[i].Name))
+                    {
+                        bilets[i].Vivod(ref vivod_bil, ref i);
+                        mesto_n = int.Parse(bilets[i].Mesto_Nomer); mesto_b = bilets[i].Mesto_Bukva;
+                        pictureBox.Visible = true;
+                        pictureBox.BackColor = Color.Transparent;
+                        label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
+                        pictureBoxs.Size = new Size(22, 22);
+                        pictureBoxs.Load("seat.jpg");
+                        pictureBoxs.BackColor = Color.Transparent;
+                        int X = Vagon.PoiskX(mesto_n, mesto_b);
+                        int Y = Vagon.PoiskY(mesto_n, mesto_b);
+                        pictureBoxs.Location = new Point(X, Y);
+                        pictureBox.Controls.Add(pictureBoxs);
+                    }
                 }
             }           
         }

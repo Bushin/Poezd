@@ -22,7 +22,11 @@ namespace Step_v0
 
 
         public void Vivod(ref TextBox t4, ref TextBox t3,ref DataGridView grid_vivod,ref int i,ref string start,ref string stop) {
-            grid_vivod.Rows.Add();
+            if (Form1.K > 0)
+            {
+                grid_vivod.Rows.Add();
+            }
+            Form1.K++;
             grid_vivod.Rows[i].Cells[0].Value =last_stops;
             grid_vivod.Rows[i].Cells[1].Value = Nomer;
             grid_vivod.Rows[i].Cells[2].Value = Type;
@@ -55,7 +59,7 @@ namespace Step_v0
             }
             if (realtime >= Time[Time.Count - 1])//поезд приехал
             {
-                last_stops =marshrut.Start;
+                last_stops =marshrut.End;
                 flag = false;
                 count=marshrut.Ostanovki.Count-1;
                 motion = false;

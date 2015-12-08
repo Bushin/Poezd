@@ -15,12 +15,15 @@ namespace Step_v0
         Train testTR;
         List<Train> list_poezdov;
         List<Stops> list_ostanovok;
+        List<Distanation> marshruts;
+        Distanation marsh;
         List<TrainControl> list_ctrl_train = new List<TrainControl>();
 
-        public MMT(List<Train> trains, List<Stops> ostanovki)
+        public MMT(List<Train> trains, List<Distanation> marshrut)
         {
             list_poezdov = trains;
-            list_ostanovok = ostanovki;
+            marshruts = marshrut;
+            //list_ostanovok = marshrut.os;
             InitializeComponent();
             Opacity = 0;
             Timer timer = new Timer();
@@ -30,6 +33,7 @@ namespace Step_v0
             });
             timer.Interval = 3;
             timer.Start();
+            // dataGridView1.AllowUserToAddRows = false;
 
         }
 
@@ -57,8 +61,9 @@ namespace Step_v0
         {
             bool flag1 = true;
             bool flag2 = true;
+            bool flag3 = true;
             int count = 0;
-            int i = 0;
+            int i = 0, q = 0;
             while (flag1)
             {
 
@@ -66,6 +71,23 @@ namespace Step_v0
                 //  for (int count = 0; count < list_ostanovok.Count; count++)
                 while (flag2)
                 {
+
+                    while (flag3)
+                    {
+                        if (list_poezdov[i].ID == marshruts[q].ID)
+                        {
+                            list_ostanovok = marshruts[q].Ostanovki;
+                            flag3 = false;
+                            q = 0;
+
+                        }
+                        else
+                        {
+                            q++;
+                        }
+                    }
+
+
                     if (list_poezdov[i].last_stops == list_ostanovok[count].Name)
                     {
                         if (list_ctrl_train.Count == 0)
@@ -110,9 +132,7 @@ namespace Step_v0
 
                             }
 
-
                         }
-
 
                     }
                     else
@@ -120,17 +140,18 @@ namespace Step_v0
                         count++;
                     }
 
-
                 }
                 //count++;
                 if (i == list_poezdov.Count)
                 {
                     flag1 = false;
                     flag2 = false;
+                    flag3 = false;
                 }
                 else
                 {
                     flag2 = true;
+                    flag3 = true;
                     count = 0;
                 }
 
@@ -145,48 +166,56 @@ namespace Step_v0
             // poezd.Location = new Point(20, 20);
             //  poezd.ctrl_x = 20;
 
-            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-
-
                 dataGridView1.Rows.RemoveAt(i);
                 i--;
-
             }
 
+
+            //dataGridView1.Rows.Add();
             listBox1.Items.Clear();
             for (int i = 0; i < poezd.coll_train.Count; i++)
             {
-
+                dataGridView1.Rows.Add();
                 if (poezd.coll_train[i].motion)
                 {
 
                     dataGridView1.Visible = true;
 
                     // listBox1.Items.Add("Поезд № " + poezd.coll_train[i].Nomer + ' ' + "В пути");
-                    dataGridView1.Rows.Add();
+
                     //  dataGridView1.Size = new Size(319, 58 * i);
                     dataGridView1.Rows[i].Cells[0].Value = poezd.coll_train[i].Nomer;
                     dataGridView1.Rows[i].Cells[1].Value = "В пути";
                     dataGridView1.Rows[i].Cells[2].Value = poezd.coll_train[i].last_stops;
+                    // dataGridView1.AllowUserToAddRows = false;
+
                 }
                 else
                 {
                     dataGridView1.Visible = true;
                     //   dataGridView1.Size = new Size(319, 58 * i);
                     //listBox1.Items.Add("Поезд № " + poezd.coll_train[i].Nomer + ' ' + "Стоит");
-                    dataGridView1.Rows.Add();
+
 
                     dataGridView1.Rows[i].Cells[0].Value = poezd.coll_train[i].Nomer;
                     dataGridView1.Rows[i].Cells[1].Value = "Cтоит";
                     dataGridView1.Rows[i].Cells[2].Value = poezd.coll_train[i].last_stops;
+                    //  dataGridView1.AllowUserToAddRows = false;
+
                 }
             }
 
             dataGridView1.Location = new Point(poezd.ctrl_x, 40 + poezd.ctrl_y);
+            // dataGridView1.AllowUserToAddRows = false;
+            //   dataGridView1.Rows.RemoveAt(dataGridView1.Rows.Count-1);
+
+
             // listBox1.Size = new Size(115, 75);
             //  listBox1.Visible = true;
             // listBox1.Location = new Point(poezd.ctrl_x, 40 + poezd.ctrl_y);
+
 
         }
 
@@ -235,6 +264,112 @@ namespace Step_v0
 
         }
 
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            listBox1.Items.Clear();
+            for (int i2 = 0; i2 < dataGridView2.RowCount; i2++)
+            {
+
+
+                dataGridView2.Rows.RemoveAt(i2);
+                i2--;
+
+            }
+
+            //dataGridView1.AllowUserToAddRows = false;
+            listBox1.Visible = true;
+            string s = "";
+            string id = "";
+            int d = 427;
+            int i = 0, count = 0;
+            bool f = false, f2 = false;
+            Distanation marh;
+            DateTime dt2 = new DateTime();
+            DateTime realtime = new DateTime();
+            int hour, min;
+            hour = int.Parse(DateTime.Now.ToString("HH"));
+            min = int.Parse(DateTime.Now.ToString("mm"));
+            realtime = realtime.AddHours(hour);
+            realtime = realtime.AddMinutes(min);
+
+
+            // dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            // DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //  if(dataGridView1.Rows[].Cells[0] == "427")
+            //   {
+
+            // }
+            int index = dataGridView1.CurrentCell.RowIndex;
+            string number = "";
+            if (dataGridView1.Rows[index].Cells[0].Value != null)
+            {
+                number = dataGridView1.Rows[index].Cells[0].Value.ToString();
+                f = true;
+            }
+
+
+            while (f)
+            {
+                if (number == list_poezdov[i].Nomer)
+                {
+                    id = list_poezdov[i].ID;
+
+                    f = false;
+                    f2 = true;
+
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+
+            while (f2)
+            {
+                if (id == marshruts[count].ID)
+                {
+                    //  for (int k = 0; k < marshruts[count].Ostanovki.Count; k++)
+                    //  {
+                    // listBox1.Items.Add(marshruts[count].Ostanovki[k].Name);
+
+                    for (int dddd = 0; dddd < marshruts[count].Ostanovki.Count; dddd++)
+                    {
+                        dataGridView2.Rows.Add();
+                        dataGridView2.Rows[dddd].Cells[0].Value = marshruts[count].Ostanovki[dddd].Name;
+                        s = list_poezdov[i].Time[dddd].ToString("HH:mm");
+                        if (realtime >= list_poezdov[i].Time[dddd])
+                        {
+                            dataGridView2.Rows[dddd].Cells[1].Value = s;
+                            dataGridView2.Rows[dddd].DefaultCellStyle.BackColor = Color.Red;
+                        }
+                        else
+                        {
+
+                            dataGridView2.Rows[dddd].Cells[1].Value = s;
+                            dataGridView2.Rows[dddd].DefaultCellStyle.BackColor = Color.Green;
+                            // dataGridView2.DefaultCellStyle.BackColor = Color.Green;
+                        }
+                        f2 = false;
+                        f = false;
+                    }
+
+
+
+                    // }
+                }
+                else
+                {
+                    count++;
+
+                }
+            }
+
+            dataGridView1.Rows[index].Selected = true;
+            dataGridView1.RowsDefaultCellStyle.SelectionForeColor = Color.Red;
+
+            // listBox1.Items.Add(index);
+        }
     }
 
 

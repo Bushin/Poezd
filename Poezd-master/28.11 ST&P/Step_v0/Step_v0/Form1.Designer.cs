@@ -388,6 +388,7 @@
             // 
             // Vivod
             // 
+            this.Vivod.AllowUserToAddRows = false;
             this.Vivod.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.Vivod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Vivod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -444,6 +445,7 @@
             // 
             // vivod_pas
             // 
+            this.vivod_pas.AllowUserToAddRows = false;
             this.vivod_pas.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.vivod_pas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.vivod_pas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -474,6 +476,7 @@
             // 
             // vivod_bil
             // 
+            this.vivod_bil.AllowUserToAddRows = false;
             this.vivod_bil.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.vivod_bil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.vivod_bil.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
