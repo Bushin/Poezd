@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Step_v0
 {
-    class Passanger
+   public class Passanger
     {
         public string Surname, Name, Nomer_poezda;
         public List<Bilet> Bilets= new List<Bilet>();

@@ -27,7 +27,7 @@
   </train>
   <train name="600">
     <type>conventional</type>
-    <distanation>12</distanation>
+    <distanation>02</distanation>
     <time>08:00 09:13 10:24 11:27 12:42 13:59 15:14</time>
   </train>
 </Train_list>

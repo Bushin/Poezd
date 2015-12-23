@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Passander_list>
   <passagir>
     <info>Samatov Sergey 428 1 2 A</info>
@@ -155,8 +155,8 @@
   </passagir>
   <passagir>
     <info>Tolina Irina 427 2 2 D</info>
-   </passagir>
-<passagir>
+  </passagir>
+  <passagir>
     <info>Novaya Galina 429 3 5 C</info>
   </passagir>
   <passagir>
@@ -206,5 +206,8 @@
   </passagir>
   <passagir>
     <info>Sergeevskiy Maksim 427 2 7 D</info>
+  </passagir>
+  <passagir>
+    <info>Bucki Gena 456 10 6 D</info>
   </passagir>
 </Passander_list>

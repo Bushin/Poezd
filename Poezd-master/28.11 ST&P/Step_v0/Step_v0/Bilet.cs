@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Step_v0
 {
-    class Bilet
+   public class Bilet
     {
         public string Nomer_poezda, Nomer_Vagona, Mesto_Nomer, Mesto_Bukva;
 

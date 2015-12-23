@@ -68,7 +68,8 @@
     </type>  
 <distanation>Аэропорт-Шереметьево Марк Пушкино Окружная Ворсино Кучино Сандарово</distanation>
 <time> 13:23 14:50 15:20 16:45 17:30 18:15 19:00</time>
-  </train><train name ="436">
+  </train>
+<train name ="436">
     <type>
       express
     </type>  

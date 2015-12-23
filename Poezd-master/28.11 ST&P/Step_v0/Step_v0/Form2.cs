@@ -23,7 +23,7 @@ namespace Step_v0
         int f = 0,count_stops=0;
         List<string> stops = new List<string>();
         List<DateTime> Time = new List<DateTime>();  
-        const string Path_file = "Poezd.xml";
+        const string Path_file1 = "Poezd.xml",Path_file2="Passanger.xml";
         private void button1_Click(object sender, EventArgs e)
         {
             if (f == 1)
@@ -37,7 +37,32 @@ namespace Step_v0
             {
                 Add_distanation();
             }
+            if (f == 3) {
+                comboBox5.Items.Add(Form1.trains[Form1.trains.Count - 1].Nomer);
+                Add_passanger();
+                CreateXMLPasssender();
+                MessageBox.Show("Пассажир " + Form1.passangers[Form1.passangers.Count - 1].Surname+ " " + Form1.passangers[Form1.passangers.Count - 1].Name + " добавлен");
+            }
 
+        }
+
+        void Add_passanger()
+        {
+            Bilet bil;Passanger pas;
+            string surname = textBox5.Text, name = textBox6.Text, nomer = comboBox5.Text, vagon = comboBox6.Text, n_mesta = comboBox7.Text, b_mesta = comboBox8.Text;
+            bil = new Bilet(nomer, vagon, n_mesta, b_mesta);
+            Form1.bilets.Add(bil);
+            pas = new Passanger(name, surname, nomer, Form1.bilets);
+            Form1.passangers.Add(pas);
+        }
+
+        void CreateXMLPasssender() {
+            XDocument doc = XDocument.Load(Path_file2);
+            doc.Root.Add(new XElement("passagir",
+                new XElement("info", Form1.passangers[Form1.passangers.Count-1].Surname + " " + Form1.passangers[Form1.passangers.Count - 1].Name + " " + Form1.passangers[Form1.passangers.Count - 1].Nomer_poezda +
+                " " + Form1.passangers[Form1.passangers.Count - 1].Bilets[Form1.bilets.Count-1].Nomer_Vagona + " " + Form1.passangers[Form1.passangers.Count - 1].Bilets[Form1.bilets.Count - 1].Mesto_Nomer +
+                " " + Form1.passangers[Form1.passangers.Count - 1].Bilets[Form1.bilets.Count - 1].Mesto_Bukva)));
+            doc.Save(Path_file2);
         }
 
         void Add_distanation()
@@ -80,12 +105,12 @@ namespace Step_v0
                    time += " ";
                 }
             }
-            XDocument doc = XDocument.Load(Path_file);
+            XDocument doc = XDocument.Load(Path_file1);
             doc.Root.Add(new XElement("train",new XAttribute("name", Form1.trains[Form1.trains.Count - 1].Nomer),
                 new XElement("type", Form1.trains[Form1.trains.Count - 1].Type),
                 new XElement("distanation", Form1.trains[Form1.trains.Count - 1].ID),
                 new XElement("time", time)));
-            doc.Save(Path_file);
+            doc.Save(Path_file1);
         }
 
         void Add_poezd() {
@@ -138,7 +163,7 @@ namespace Step_v0
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             f = 3;
-
+            comboBox5.Enabled = true; comboBox6.Enabled = true;
         }
 
         private void comboBox4_SelectionChangeCommitted(object sender, EventArgs e)

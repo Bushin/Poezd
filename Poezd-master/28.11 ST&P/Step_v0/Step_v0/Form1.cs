@@ -20,8 +20,8 @@ namespace Step_v0
         Train t; Passanger pas;Bilet bil;Distanation dist;
         public static List<Train> trains = new List<Train>();
         public static List<Distanation> marshruti = new List<Distanation>();
-        List<Passanger> passangers = new List<Passanger>();
-        List<Bilet> bilets = new List<Bilet>();
+        public static List<Passanger> passangers = new List<Passanger>();
+        public static List<Bilet> bilets = new List<Bilet>();
         public List<Train> current_trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
         public static ComboBox c_b = new ComboBox();

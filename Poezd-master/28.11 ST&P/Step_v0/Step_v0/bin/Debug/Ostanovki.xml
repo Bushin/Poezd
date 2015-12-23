@@ -38,7 +38,7 @@
   <ostanovka name ="Космос">
     <info>427 135</info>
   </ostanovka>
-  <ostanovka name ="Аэропорт Домодедово">
+  <ostanovka name ="Аэропорт-Домодедово">
     <info>450 173</info>
   </ostanovka>
   <ostanovka name ="Клемово">
@@ -50,7 +50,7 @@
   <ostanovka name ="Серпухов">
     <info>660 273</info>
   </ostanovka>
-  <ostanovka name ="Казанский вокзал">
+  <ostanovka name ="Казанский-Вокзал">
     <info>60 395</info>
   </ostanovka>
   <ostanovka name ="Детково">
@@ -68,10 +68,10 @@
   <ostanovka name ="Хомяково">
     <info>537 395</info>
   </ostanovka>
-  <ostanovka name ="Белые столбы">
+  <ostanovka name ="Белые-Столбы">
     <info>606 395</info>
   </ostanovka>
-  <ostanovka name ="Жилево">
+  <ostanovka name ="Жилёво">
     <info>736 395</info>
   </ostanovka>
   <ostanovka name ="Шемякино">
@@ -89,7 +89,7 @@
   <ostanovka name ="Марк">
     <info>140 184</info>
   </ostanovka>
-  <ostanovka name ="Аэропорт Шереметьево">
+  <ostanovka name ="Аэропорт-Шереметьево">
     <info>1140 140</info>
   </ostanovka>
   <ostanovka name ="Пурлово">
@@ -104,13 +104,13 @@
 <ostanovka name ="Казань">
     <info>955 509</info>
   </ostanovka>
-  <ostanovka name ="Ярославский вокзал">
+  <ostanovka name ="Ярославский-Вокзал">
     <info>183 627</info>
   </ostanovka>
   <ostanovka name ="Соколовская">
     <info>62 627</info>
   </ostanovka>
-  <ostanovka name ="Щелково">
+  <ostanovka name ="Щёлково">
     <info>275 627</info>
   </ostanovka>
 <ostanovka name ="Чкаловская">
@@ -122,7 +122,7 @@
   <ostanovka name ="Электросталь">
     <info>634 627</info>
   </ostanovka>
-  <ostanovka name ="Сергиев Посад">
+  <ostanovka name ="Сергиев-Пасад">
     <info>736 627</info>
   </ostanovka>
   <ostanovka name ="Струнино">
