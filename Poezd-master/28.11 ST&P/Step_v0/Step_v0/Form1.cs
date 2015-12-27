@@ -25,40 +25,6 @@ namespace Step_v0
         public List<Train> current_trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
         public static ComboBox c_b = new ComboBox();
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton1.Checked)
-                f = 1;
-            textBox1.Enabled = true; textBox6.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; c_b.Enabled = false;;
-            Vivod_ostanovok.Items.Clear();
-            label1.ForeColor = Color.Gold;
-            label5.ForeColor = Color.White;
-            label6.ForeColor = Color.White;
-            Vivod.Visible = false;count = 0;K = 0;
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton2.Checked)
-                f = 2;
-            textBox3.Enabled = true; textBox4.Enabled = true; textBox1.Enabled = false; textBox6.Enabled = false; c_b.Enabled = false;
-            Vivod_ostanovok.Items.Clear();
-            label5.ForeColor = Color.Gold;
-            label1.ForeColor = Color.White;
-            label6.ForeColor = Color.White;K = 0;
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton3.Checked)
-                f = 3;
-            c_b.Enabled = true; textBox3.Enabled = false; textBox4.Enabled = false; textBox1.Enabled = false; textBox6.Enabled = false;
-            Vivod_ostanovok.Items.Clear();
-            label6.ForeColor = Color.Gold;
-            label1.ForeColor = Color.White;
-            label5.ForeColor = Color.White;
-            vivod_pas.Visible = false;count = 0;K = 0;
-        }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -371,7 +337,7 @@ namespace Step_v0
         {
             PoiskVsexmarshrutov();
             PoiskVsexPoezdov();          
-            c_b.Location= new Point(801,73);c_b.Enabled = false;
+            c_b.Location= new Point(801,73);c_b.Visible = false;
             this.Controls.Add(c_b);
             for (int i=0;i<trains.Count;i++)
             c_b.Items.Add(trains[i].Nomer);
@@ -441,6 +407,60 @@ namespace Step_v0
             }           
         }
 
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curent_index = toolStripComboBox1.SelectedIndex.ToString();
+            switch (curent_index) {
+                case "0":
+                        Editor_distanation firstForm = new Editor_distanation();
+                        firstForm.ShowDialog();
+                        break;
+                case "1":
+                    Form2 secondForm = new Form2(trains);
+                    secondForm.ShowDialog();
+                    break;
+                case "2":
+                    Editor_passanger thirdForm = new Editor_passanger();
+                    thirdForm.ShowDialog();
+                    break;
+            }
+        }
 
+        private void toolStripComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string curitem = toolStripComboBox2.SelectedIndex.ToString();
+            switch (curitem) {
+                case "0":
+                    label9.Visible = true; label2.Visible = false; label3.Visible = false; label7.Visible = false; label8.Visible = false;
+                    c_b.Visible = true; textBox3.Visible = false; textBox4.Visible = false; textBox1.Visible = false; textBox6.Visible = false;
+                    Receive_data1.Visible = true;Clean.Visible = true;MMT.Visible = true;
+                    Vivod_ostanovok.Items.Clear();
+                    label6.ForeColor = Color.Gold;
+                    label1.ForeColor = Color.White;
+                    label5.ForeColor = Color.White;
+                    vivod_pas.Visible = false; count = 0; K = 0;
+                    break;
+                case "1":
+                    textBox3.Visible = true; textBox4.Visible = true; textBox1.Visible = false; textBox6.Visible = false; c_b.Visible = false;
+                    label2.Visible = false; label3.Visible = false; label9.Visible = false; label7.Visible = true; label8.Visible =true;
+                    Receive_data1.Visible = true; Clean.Visible = true; MMT.Visible = true;
+                    Vivod_ostanovok.Items.Clear();
+                    label5.ForeColor = Color.Gold;
+                    label1.ForeColor = Color.White;
+                    label6.ForeColor = Color.White; K = 0;
+                    break;
+                case "2":
+                    textBox1.Visible = true; textBox6.Visible = true; textBox3.Visible = false; textBox4.Visible = false; c_b.Visible = false; ;
+                    label2.Visible = true; label3.Visible = true;label9.Visible = false; label7.Visible = false; label8.Visible = false;
+                    Receive_data1.Visible = true; Clean.Visible = true; MMT.Visible = true;
+                    Vivod_ostanovok.Items.Clear();
+                    label1.ForeColor = Color.Gold;
+                    label5.ForeColor = Color.White;
+                    label6.ForeColor = Color.White;
+                    Vivod.Visible = false; count = 0; K = 0;
+                    break;
+
+            }
+        }
     }
 }

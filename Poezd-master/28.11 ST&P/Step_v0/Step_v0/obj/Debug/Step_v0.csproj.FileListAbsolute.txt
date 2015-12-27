@@ -105,3 +105,5 @@ C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0
 C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0\obj\Debug\Step_v0.Properties.Resources.resources
 C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0\obj\Debug\Step_v0.TrainControl.resources
 C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0\obj\Debug\Step_v0.csproj.GenerateResource.Cache
+C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0\obj\Debug\Step_v0.Editor_distanation.resources
+C:\Users\Жанна\Desktop\Poezd-master\Poezd-master\28.11 ST&P\Step_v0\Step_v0\obj\Debug\Step_v0.Editor_passanger.resources

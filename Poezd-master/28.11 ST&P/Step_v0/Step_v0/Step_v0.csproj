@@ -49,6 +49,18 @@
   <ItemGroup>
     <Compile Include="Bilet.cs" />
     <Compile Include="Distanation.cs" />
+    <Compile Include="Editor_distanation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor_distanation.Designer.cs">
+      <DependentUpon>Editor_distanation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor_passanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor_passanger.Designer.cs">
+      <DependentUpon>Editor_passanger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +91,12 @@
       <DependentUpon>TrainControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Vagon.cs" />
+    <EmbeddedResource Include="Editor_distanation.resx">
+      <DependentUpon>Editor_distanation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor_passanger.resx">
+      <DependentUpon>Editor_passanger.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

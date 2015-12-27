@@ -45,9 +45,4 @@
     <distanation>новая ветка</distanation>
     <time>09:15 09:58 10:37 11:26 12:09 16:42</time>
   </train>
-  <train name="567">
-    <type>conventional</type>
-    <distanation>проверка</distanation>
-    <time>10:00 10:45 11:37 12:29 13:11 14:01 18:00</time>
-  </train>
 </Train_list>

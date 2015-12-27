@@ -115,9 +115,4 @@
     <End>Казанский-Вокзал</End>
     <stops>Рязань Шемякино Белые-Столбы Сандарово Ворсино Казанский-Вокзал</stops>
   </Distanation>
-  <Distanation id="проверка">
-    <Start>Москва</Start>
-    <End>Тула</End>
-    <stops>Москва Коломенская Расторгуево Взлетная Барыбино Яганово Тула</stops>
-  </Distanation>
 </Distanation_list>
