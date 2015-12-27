@@ -87,7 +87,7 @@ namespace Step_v0
                         }
                     }
 
-
+                   // if (count>)
                     if (list_poezdov[i].last_stops == list_ostanovok[count].Name)
                     {
                         if (list_ctrl_train.Count == 0)

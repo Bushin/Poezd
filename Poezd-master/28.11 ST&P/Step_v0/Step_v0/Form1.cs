@@ -14,7 +14,6 @@ namespace Step_v0
             InitializeComponent();
         }
  
-        int f = 0;
         string mesto_b;string curitem_inteface;
         int mesto_n;int count = 0;public static int K = 0;
         Train t; Passanger pas;Bilet bil;Distanation dist;
@@ -207,8 +206,6 @@ namespace Step_v0
                 }
             }
         }
-
-
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
@@ -416,13 +413,13 @@ namespace Step_v0
                         firstForm.ShowDialog();
                         break;
                 case "1":
-                    Form2 secondForm = new Form2(trains);
-                    secondForm.ShowDialog();
-                    break;
+                        Form2 secondForm = new Form2(trains);
+                        secondForm.ShowDialog();
+                        break;
                 case "2":
-                    Editor_passanger thirdForm = new Editor_passanger();
-                    thirdForm.ShowDialog();
-                    break;
+                        Editor_passanger thirdForm = new Editor_passanger();
+                        thirdForm.ShowDialog();
+                        break;
             }
         }
 
