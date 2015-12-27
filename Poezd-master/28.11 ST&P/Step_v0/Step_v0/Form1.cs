@@ -15,7 +15,7 @@ namespace Step_v0
         }
  
         int f = 0;
-        string mesto_b;
+        string mesto_b;string curitem_inteface;
         int mesto_n;int count = 0;public static int K = 0;
         Train t; Passanger pas;Bilet bil;Distanation dist;
         public static List<Train> trains = new List<Train>();
@@ -212,7 +212,7 @@ namespace Step_v0
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
-            if (f == 3)
+            if (curitem_inteface == "0")
             {
                 string str = c_b.Text;int proverka_na_povtor=0;               
                 if (K != 0)
@@ -244,7 +244,7 @@ namespace Step_v0
                 }
             }
 
-            if (f == 2)
+            if (curitem_inteface == "1")
             {
                 string str1 = textBox4.Text, str2 = textBox3.Text; int proverka_na_povtor = 0;
                 string str_ob = str1 + str2;
@@ -277,7 +277,7 @@ namespace Step_v0
                 }
             }
 
-            if (f == 1)
+            if (curitem_inteface == "2")
             {
                 string str1 = textBox1.Text;string str2 = textBox6.Text;vivod_pas.Rows.Add();vivod_bil.Rows.Add();
                 string str_ob = str1 + str2;
@@ -428,26 +428,27 @@ namespace Step_v0
 
         private void toolStripComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string curitem = toolStripComboBox2.SelectedIndex.ToString();
-            switch (curitem) {
+            curitem_inteface = toolStripComboBox2.SelectedIndex.ToString();
+            switch (curitem_inteface) {
                 case "0":
                     label9.Visible = true; label2.Visible = false; label3.Visible = false; label7.Visible = false; label8.Visible = false;
                     c_b.Visible = true; textBox3.Visible = false; textBox4.Visible = false; textBox1.Visible = false; textBox6.Visible = false;
-                    Receive_data1.Visible = true;Clean.Visible = true;MMT.Visible = true;
+                    Receive_data1.Visible = true;Clean.Visible = true;MMT.Visible = true; label10.Visible = false; label11.Visible = false; label12.Visible = false; label13.Visible = false;
                     Vivod_ostanovok.Items.Clear();
                     label6.ForeColor = Color.Gold;
                     label1.ForeColor = Color.White;
                     label5.ForeColor = Color.White;
-                    vivod_pas.Visible = false; count = 0; K = 0;
+                    vivod_pas.Visible = false; pictureBox.Visible = false; count = 0; K = 0; vivod_bil.Visible = false; vivod_pas.Visible = false;
                     break;
                 case "1":
                     textBox3.Visible = true; textBox4.Visible = true; textBox1.Visible = false; textBox6.Visible = false; c_b.Visible = false;
                     label2.Visible = false; label3.Visible = false; label9.Visible = false; label7.Visible = true; label8.Visible =true;
-                    Receive_data1.Visible = true; Clean.Visible = true; MMT.Visible = true;
+                    Receive_data1.Visible = true; Clean.Visible = true; MMT.Visible = true; label10.Visible = false; label11.Visible = false; label12.Visible = false; label13.Visible = false;
                     Vivod_ostanovok.Items.Clear();
                     label5.ForeColor = Color.Gold;
                     label1.ForeColor = Color.White;
                     label6.ForeColor = Color.White; K = 0;
+                    Vivod.Visible = false; pictureBox.Visible = false;vivod_bil.Visible = false;vivod_pas.Visible = false;
                     break;
                 case "2":
                     textBox1.Visible = true; textBox6.Visible = true; textBox3.Visible = false; textBox4.Visible = false; c_b.Visible = false; ;

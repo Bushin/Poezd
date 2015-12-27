@@ -236,7 +236,7 @@
             this.Clean.Name = "Clean";
             this.Clean.Size = new System.Drawing.Size(156, 42);
             this.Clean.TabIndex = 23;
-            this.Clean.Text = "Отчистить";
+            this.Clean.Text = "Стереть";
             this.Clean.UseVisualStyleBackColor = true;
             this.Clean.Visible = false;
             this.Clean.Click += new System.EventHandler(this.Clean_Click);
