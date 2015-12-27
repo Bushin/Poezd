@@ -31,12 +31,12 @@ namespace Step_v0
             Bilet bil; Passanger pas;
             string surname = textBox5.Text, name = textBox6.Text, nomer = comboBox5.Text, vagon = comboBox6.Text, n_mesta = comboBox7.Text, b_mesta = comboBox8.Text;
             bil = new Bilet(nomer, vagon, n_mesta, b_mesta);
-            Form1.bilets.Add(bil);
-            pas = new Passanger(name, surname, nomer, Form1.bilets);
-            for (int i = 0; i < Form1.trains.Count; i++)
+            Glades.bilets.Add(bil);
+            pas = new Passanger(name, surname, nomer, Glades.bilets);
+            for (int i = 0; i < Glades.trains.Count; i++)
             {
-                if (nomer == Form1.trains[i].Nomer)
-                    Form1.trains[i].passanger.Add(pas);
+                if (nomer == Glades.trains[i].Nomer)
+                    Glades.trains[i].passanger.Add(pas);
             }
         }
 
@@ -53,8 +53,8 @@ namespace Step_v0
 
         private void Editor_passanger_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < Form1.trains.Count - 1; i++)
-                comboBox5.Items.Add(Form1.trains[i].Nomer);
+            for (int i = 0; i < Glades.trains.Count - 1; i++)
+                comboBox5.Items.Add(Glades.trains[i].Nomer);
         }
     }
 }

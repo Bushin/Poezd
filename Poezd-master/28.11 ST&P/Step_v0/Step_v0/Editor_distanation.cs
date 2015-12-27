@@ -25,7 +25,7 @@ namespace Step_v0
             Add_distanation();
             CreateXMLDIstanation();
             ostanovki = null;
-            MessageBox.Show("Путь " + Form1.marshruti[Form1.marshruti.Count - 1].ID + " " + "Добавлен");
+            MessageBox.Show("Путь " + Glades.marshruti[Glades.marshruti.Count - 1].ID + " " + "Добавлен");
         }
 
         void Add_distanation()
@@ -33,7 +33,7 @@ namespace Step_v0
             string name = textBox4.Text;
             Distanation dist;
             dist = new Distanation(name, ostanovki[0].Name, ostanovki[ostanovki.Count - 1].Name, ostanovki);
-            Form1.marshruti.Add(dist);
+            Glades.marshruti.Add(dist);
         }
 
         void CreateXMLDIstanation()
@@ -48,22 +48,22 @@ namespace Step_v0
                     stops += " ";
                 }
             }
-            doc.Root.Add(new XElement("Distanation", new XAttribute("id", Form1.marshruti[Form1.marshruti.Count - 1].ID),
-               new XElement("Start", Form1.marshruti[Form1.marshruti.Count - 1].Start),
-               new XElement("End", Form1.marshruti[Form1.marshruti.Count - 1].End),
+            doc.Root.Add(new XElement("Distanation", new XAttribute("id", Glades.marshruti[Glades.marshruti.Count - 1].ID),
+               new XElement("Start", Glades.marshruti[Glades.marshruti.Count - 1].Start),
+               new XElement("End", Glades.marshruti[Glades.marshruti.Count - 1].End),
                new XElement("stops", stops)));
             doc.Save(Path_file3);
         }
 
         private void combobox2_fil(string cur_it)
         {
-            for (int i = 0; i < Form1.marshruti.Count; i++)
+            for (int i = 0; i < Glades.marshruti.Count; i++)
             {
-                if (cur_it == Form1.marshruti[i].ID)
+                if (cur_it == Glades.marshruti[i].ID)
                 {
-                    for (int j = 0; j < Form1.marshruti[i].Ostanovki.Count; j++)
+                    for (int j = 0; j < Glades.marshruti[i].Ostanovki.Count; j++)
                     {
-                        listBox1.Items.Add(Form1.marshruti[i].Ostanovki[j].Name);
+                        listBox1.Items.Add(Glades.marshruti[i].Ostanovki[j].Name);
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace Step_v0
         private void Editor_distanation_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < 3; i++)
-                comboBox2.Items.Add(Form1.marshruti[i].ID);
+                comboBox2.Items.Add(Glades.marshruti[i].ID);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace Step_v0
 
         public void fil_ostanivki(string str_it)
         {
-            ostanovki.Add(Form1.Poiskostanovoki(str_it));
+            ostanovki.Add(Glades.Poiskostanovoki(str_it));
         }
     }
 }

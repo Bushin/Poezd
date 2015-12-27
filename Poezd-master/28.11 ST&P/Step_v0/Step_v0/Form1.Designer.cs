@@ -343,7 +343,6 @@
             this.Vivod.Size = new System.Drawing.Size(679, 274);
             this.Vivod.TabIndex = 33;
             this.Vivod.Visible = false;
-            this.Vivod.SelectionChanged += new System.EventHandler(this.Vivod_SelectionChanged);
             // 
             // Column1
             // 

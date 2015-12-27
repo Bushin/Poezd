@@ -28,8 +28,8 @@ namespace Step_v0
         {                  
                 Add_poezd();
                 CreateXMLPoezd();
-                Form1.c_b.Items.Add(Form1.trains[Form1.trains.Count - 1].Nomer);
-                MessageBox.Show("Поезд "+ Form1.trains[Form1.trains.Count - 1].Nomer + " добавлен");   
+                Form1.c_b.Items.Add(Glades.trains[Glades.trains.Count - 1].Nomer);
+                MessageBox.Show("Поезд "+ Glades.trains[Glades.trains.Count - 1].Nomer + " добавлен");   
         }
 
 
@@ -37,15 +37,15 @@ namespace Step_v0
         {
             string time = "";
             for (int i = 0; i < count_stops;i++) {
-                time += Form1.trains[Form1.trains.Count - 1].Time[i].ToString("HH:mm");
+                time += Glades.trains[Glades.trains.Count - 1].Time[i].ToString("HH:mm");
                 if (i < count_stops-1) {
                    time += " ";
                 }
             }
             XDocument doc = XDocument.Load(Path_file1);
-            doc.Root.Add(new XElement("train",new XAttribute("name", Form1.trains[Form1.trains.Count - 1].Nomer),
-                new XElement("type", Form1.trains[Form1.trains.Count - 1].Type),
-                new XElement("distanation", Form1.trains[Form1.trains.Count - 1].ID),
+            doc.Root.Add(new XElement("train",new XAttribute("name", Glades.trains[Glades.trains.Count - 1].Nomer),
+                new XElement("type", Glades.trains[Glades.trains.Count - 1].Type),
+                new XElement("distanation", Glades.trains[Glades.trains.Count - 1].ID),
                 new XElement("time", time)));
             doc.Save(Path_file1);
         }
@@ -55,9 +55,9 @@ namespace Step_v0
             List<Passanger> passangers = new List<Passanger>();
             string nomer = textBox1.Text, type = comboBox1.Text,id=comboBox4.Text;
             int i = 0;
-            for (i = 0; i < Form1.marshruti.Count; i++) {
-                if (id == Form1.marshruti[i].ID) {
-                    count_stops = Form1.marshruti[i].Ostanovki.Count;
+            for (i = 0; i < Glades.marshruti.Count; i++) {
+                if (id == Glades.marshruti[i].ID) {
+                    count_stops = Glades.marshruti[i].Ostanovki.Count;
                 }
             }
             string[] time1 = textBox2.Text.Split(':');
@@ -81,18 +81,18 @@ namespace Step_v0
                 Time.Add(dt);      
             }
             Train t = new Train(nomer, type, id, Time,passangers);
-            Form1.trains.Add(t);
+            Glades.trains.Add(t);
         }
 
       
         private void combobox2_fil(string cur_it) {
-            for (int i = 0; i < Form1.marshruti.Count; i++)
+            for (int i = 0; i < Glades.marshruti.Count; i++)
             {
-                if (cur_it == Form1.marshruti[i].ID)
+                if (cur_it == Glades.marshruti[i].ID)
                 {
-                    for (int j = 0; j < Form1.marshruti[i].Ostanovki.Count; j++)
+                    for (int j = 0; j < Glades.marshruti[i].Ostanovki.Count; j++)
                     {
-                        listBox1.Items.Add(Form1.marshruti[i].Ostanovki[j].Name);
+                        listBox1.Items.Add(Glades.marshruti[i].Ostanovki[j].Name);
                     }
                 }
             }
@@ -107,8 +107,8 @@ namespace Step_v0
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < Form1.marshruti.Count; i++)
-                comboBox4.Items.Add(Form1.marshruti[i].ID);
+            for (int i = 0; i < Glades.marshruti.Count; i++)
+                comboBox4.Items.Add(Glades.marshruti[i].ID);
         }
 
     }

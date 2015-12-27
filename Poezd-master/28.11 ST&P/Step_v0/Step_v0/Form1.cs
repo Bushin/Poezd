@@ -16,12 +16,6 @@ namespace Step_v0
  
         string mesto_b;string curitem_inteface;
         int mesto_n;int count = 0;public static int K = 0;
-        Train t; Passanger pas;Bilet bil;Distanation dist;
-        public static List<Train> trains = new List<Train>();
-        public static List<Distanation> marshruti = new List<Distanation>();
-        public static List<Passanger> passangers = new List<Passanger>();
-        public static List<Bilet> bilets = new List<Bilet>();
-        public List<Train> current_trains = new List<Train>();
         PictureBox pictureBoxs = new PictureBox();
         public static ComboBox c_b = new ComboBox();
 
@@ -39,187 +33,26 @@ namespace Step_v0
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
-        public void PoiskVsexPoezdov()
+        Glades glades = new Glades();
+        void Function()
         {
-            XmlDocument Doc = new XmlDocument();
-            Doc.Load("Poezd.xml");
-            XmlElement Root = Doc.DocumentElement;
-            string nomer="",type="",id="";
-            int Hour, Min;
-            foreach (XmlNode node in Root)
-            {
-                List<string> distance = new List<string>();
-                List<DateTime> time = new List<DateTime>();
-                List<Passanger> passangers = new List<Passanger>();
-                if (node.Attributes.Count > 0)
-                {                 
-                    XmlNode attr = node.Attributes.GetNamedItem("name");
-                    if (attr != null)
-                       nomer = attr.Value;
-                }
-                foreach (XmlNode childnode in node.ChildNodes)
-                {
-                    if (childnode.Name == "type")
-                    {
-                        type = childnode.InnerText;
-                    }
-                    if (childnode.Name == "distanation")
-                    {
-                        id = childnode.InnerText;
-                    }
-                    if (childnode.Name == "time")
-                    {
-                        string[] info = childnode.InnerText.Split(' ');
-                        for (int i = 0; i < info.Length; i++)
-                        {
-                            string[] info1 = (info[i].Split(':'));
-                            Hour = int.Parse(info1[0]);
-                            Min = int.Parse(info1[1]);
-                            DateTime dt = new DateTime();
-                            dt = dt.AddHours(Hour);
-                            dt = dt.AddMinutes(Min);
-                            time.Add(dt);
-                        }
-                    }
-                }
-                passangers = PoiskVsexPasagirov(nomer);
-                t= new Train(nomer,type,id,time,passangers);           
-                trains.Add(t);
-                distance = null;
-                time = null;
-                passangers = null;
-            }
-        }
-
-        public static Stops Poiskostanovoki(string name_ostanovki)
-        {
-            Stops ost;
-            XmlDocument Doc = new XmlDocument();
-            Doc.Load("Ostanovki.xml");
-            XmlElement Root = Doc.DocumentElement;
-            string name = "";int cor_x=0, cor_y=0;
-            foreach (XmlNode node in Root)
-            {                
-                if (node.Attributes.Count > 0)
-                {
-                    XmlNode attr = node.Attributes.GetNamedItem("name");
-                    if (attr != null)
-                        name = attr.Value;
-                }
-                if (name_ostanovki == name)
-                {
-                    foreach (XmlNode childnode in node.ChildNodes)
-                    {
-                        if (childnode.Name == "info")
-                        {
-                            string[] info = childnode.InnerText.Split(' ');
-                            cor_x = int.Parse(info[0]);
-                            cor_y = int.Parse(info[1]);
-                        }
-                    }
-                    return ost = new Stops(name, cor_x, cor_y);
-                }
-            }
-            return ost = new Stops("null", 0, 0);
-        }
-
-        public void PoiskVsexmarshrutov()
-        {
-            XmlDocument Doc = new XmlDocument();
-            Doc.Load("Distanation.xml");
-            XmlElement Root = Doc.DocumentElement;
-            string start = "", end = "",id="";
-            foreach (XmlNode node in Root)
-            {
-                List<Stops> ostanovki = new List<Stops>(); 
-                if (node.Attributes.Count > 0)
-                {
-                    XmlNode attr = node.Attributes.GetNamedItem("id");
-                    if (attr != null)
-                        id = attr.Value;
-                }
-                foreach (XmlNode childnode in node.ChildNodes)
-                {
-                    if (childnode.Name == "Start")
-                    {
-                        start = childnode.InnerText;
-                    }
-                    if (childnode.Name == "End")
-                    {
-                        end = childnode.InnerText;        
-                    }
-                    if (childnode.Name == "stops")
-                    {
-                        string[] info = childnode.InnerText.Split(' ');
-                        for (int i = 0; i < info.Length; i++)
-                        {                          
-                            ostanovki.Add(Poiskostanovoki(info[i]));
-                        }
-                    }
-                }
-                dist = new Distanation(id,start,end,ostanovki);
-                marshruti.Add(dist);
-                ostanovki  = null;
-            }
-        }
-
-        public static List<Passanger> PoiskVsexPasagirov(string nomer)
-        {
-            Passanger pas; Bilet bil;
-            XmlDocument Doc = new XmlDocument();
-            List<Passanger> passangers_for_current_train = new List<Passanger>();
-            Doc.Load("Passanger.xml");
-            XmlElement Root = Doc.DocumentElement;
-            string n = "", s = "", nomer_poezda = "", nomer_vagona = "", mesto_nomer = "", mesto_bukva = "";
-            foreach (XmlNode node in Root)
-            {
-                foreach (XmlNode childnode in node.ChildNodes)
-                {
-                    if (childnode.Name == "info")
-                    {
-                        string[] info = childnode.InnerText.Split(' ');
-                        n = info[1]; s = info[0]; nomer_poezda = info[2]; nomer_vagona = info[3]; mesto_nomer = info[4]; mesto_bukva = info[5];
-                    }
-                }
-                if (nomer == nomer_poezda)
-                {
-                    bil = new Bilet(nomer_poezda, nomer_vagona, mesto_nomer, mesto_bukva);
-                    bilets.Add(bil);
-                    pas = new Passanger(n, s, nomer_poezda, bilets);
-                    passangers_for_current_train.Add(pas);
-                    
-                }
-
-            }
-            return passangers_for_current_train;
-        }
-
-        void Vivod_poezdov_marshrutov(int i) {
-            for (int j = 0; j < marshruti.Count; j++)
-            {
-                if (trains[i].ID == marshruti[j].ID)
-                {
-                    trains[i].last_ostanovka(marshruti[j]);
-                    current_trains.Add(trains[i]);
-                    trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
-                    count++;
-                }
-            }
+            glades.PoiskVsexPoezdov();
+            glades.PoiskVsexmarshrutov();
         }
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
             if (curitem_inteface == "0")
             {
-                string str = c_b.Text;int proverka_na_povtor=0;               
+                string str = c_b.Text; int proverka_na_povtor = 0;
                 if (K != 0)
-                { 
-                  proverka_na_povtor=Proverka_poezdov(str,current_trains); 
+                {
+                    proverka_na_povtor = Glades.Proverka_poezdov(str, glades.current_trains);
                 }
-                
+
                 if ((str == "") && (K == 0))
-                {                 
-                    for (int i = 0; i < trains.Count; i++)
+                {
+                    for (int i = 0; i < Glades.trains.Count; i++)
                     {
                         K++;
                         Vivod_poezdov_marshrutov(i);
@@ -229,12 +62,12 @@ namespace Step_v0
                 {
                     if (proverka_na_povtor == 0)
                     {
-                        for (int i = 0; i < trains.Count; i++)
+                        for (int i = 0; i < Glades.trains.Count; i++)
                         {
-                            if (str == trains[i].Nomer)
+                            if (str == Glades.trains[i].Nomer)
                             {
                                 K++;
-                                Vivod_poezdov_marshrutov(i); 
+                                Vivod_poezdov_marshrutov(i);
                             }
                         }
                     }
@@ -247,12 +80,12 @@ namespace Step_v0
                 string str_ob = str1 + str2;
                 if (K != 0)
                 {
-                    proverka_na_povtor = Proverka_poezdov(str_ob, current_trains);
+                    proverka_na_povtor = Glades.Proverka_poezdov(str_ob, glades.current_trains);
                 }
 
                 if ((str_ob == "") && (K == 0))
                 {
-                    for (int i = 0; i < trains.Count; i++)
+                    for (int i = 0; i < Glades.trains.Count; i++)
                     {
                         K++;
                         Vivod_poezdov_marshrutov(i);
@@ -262,9 +95,9 @@ namespace Step_v0
                 {
                     if (proverka_na_povtor == 0)
                     {
-                        for (int i = 0; i < trains.Count; i++)
+                        for (int i = 0; i < Glades.trains.Count; i++)
                         {
-                            if ((marshruti[i].Start + marshruti[i].End).Contains(str_ob))
+                            if ((Glades.marshruti[i].Start + Glades.marshruti[i].End).Contains(str_ob))
                             {
                                 K++;
                                 Vivod_poezdov_marshrutov(i);
@@ -276,31 +109,47 @@ namespace Step_v0
 
             if (curitem_inteface == "2")
             {
-                string str1 = textBox1.Text;string str2 = textBox6.Text;vivod_pas.Rows.Add();vivod_bil.Rows.Add();
+                string str1 = textBox1.Text; string str2 = textBox6.Text; vivod_pas.Rows.Add(); vivod_bil.Rows.Add();
                 string str_ob = str1 + str2;
                 if (str_ob == "")
                 {
-                    for (int i = 0; i < trains.Count; i++)
+                    for (int i = 0; i < Glades.trains.Count; i++)
                     {
-                        for (int j = 0; j < trains[i].passanger.Count; j++)
+                        for (int j = 0; j < Glades.trains[i].passanger.Count; j++)
                         {
-                            trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
+                            Glades.trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
                             count++;
                         }
                     }
                 }
-                else {
-                    for (int i = 0; i < trains.Count; i++)
+                else
+                {
+                    for (int i = 0; i < Glades.trains.Count; i++)
                     {
-                        for (int j = 0; j < trains[i].passanger.Count; j++)
+                        for (int j = 0; j < Glades.trains[i].passanger.Count; j++)
                         {
-                            if ((trains[i].passanger[j].Surname + trains[i].passanger[j].Name).Contains(str_ob))
+                            if ((Glades.trains[i].passanger[j].Surname + Glades.trains[i].passanger[j].Name).Contains(str_ob))
                             {
-                                trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
+                                Glades.trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
                                 count++;
                             }
                         }
                     }
+                }
+            }
+            
+        }
+
+        void Vivod_poezdov_marshrutov(int i)
+        {
+            for (int j = 0; j < Glades.marshruti.Count; j++)
+            {
+                if (Glades.trains[i].ID == Glades.marshruti[j].ID)
+                {
+                    Glades.trains[i].last_ostanovka(Glades.marshruti[j]);
+                    glades.current_trains.Add(Glades.trains[i]);
+                    Glades.trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref Glades.marshruti[j].Start, ref Glades.marshruti[j].End);
+                    count++;
                 }
             }
         }
@@ -314,63 +163,29 @@ namespace Step_v0
             pictureBoxs.Image = null;
             pictureBox.Visible = false;
             pictureBox.Refresh();
-            current_trains.Clear();count = 0;
+            glades.current_trains.Clear();count = 0;
             Vivod.Rows.Clear();vivod_pas.Rows.Clear();vivod_bil.Visible = false;K = 0;
         }
 
         private void MMT_Click(object sender, EventArgs e)
         {
-            MMT MMT_Form = new MMT(current_trains,marshruti);
+            MMT MMT_Form = new MMT(glades.current_trains,Glades.marshruti);
             MMT_Form.ShowDialog();
         }
 
         private void Editor_Click(object sender, EventArgs e)
         {
-            Form2 secondForm = new Form2(trains);
+            Form2 secondForm = new Form2(Glades.trains);
             secondForm.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PoiskVsexmarshrutov();
-            PoiskVsexPoezdov();          
+            Function();
             c_b.Location= new Point(801,73);c_b.Visible = false;
             this.Controls.Add(c_b);
-            for (int i=0;i<trains.Count;i++)
-            c_b.Items.Add(trains[i].Nomer);
-        }
-
-
-        private void Vivod_SelectionChanged(object sender, EventArgs e)
-        {         
-           /* string curItem = Vivod[1, Vivod.CurrentRow.Index].Value.ToString();
-            Vivod_ostanovok.Items.Clear();
-            if ((f == 3) || (f == 2))
-            {
-                for (int i = 0; i < trains.Count; i++)
-                {
-                    if (curItem == trains[i].Nomer)
-                    {
-                        for (int j = 0; j < trains[i]..Count; j++)
-                            Vivod_ostanovok.Items.Add(trains[i].Distance[j]);
-                    }
-                }
-            Vivod_ostanovok.Visible = true;
-           }*/
-        }
-
-        public static int Proverka_poezdov(string s,List<Train> c_t){
-            int p = 0;
-            for (int i = 0; i < c_t.Count; i++)
-            {
-                if (s == c_t[i].Nomer)
-                {
-                     p = 1;
-                    return p;
-                }
-                else {  p = 0; }
-            }
-            return p;
+            for (int i=0;i<Glades.trains.Count;i++)
+            c_b.Items.Add(Glades.trains[i].Nomer);
         }
 
 
@@ -381,13 +196,13 @@ namespace Step_v0
             string curName = vivod_pas[1, vivod_pas.CurrentRow.Index].Value.ToString();
             vivod_bil.Rows.Clear();
             string Fio = ""; Fio+= curSurname + curName;
-            for (int i = 0; i < trains.Count; i++) {
-                    for (int j = 0; j < trains[i].passanger.Count; j++)
+            for (int i = 0; i < Glades.trains.Count; i++) {
+                    for (int j = 0; j < Glades.trains[i].passanger.Count; j++)
                     {
-                        if (Fio == (trains[i].passanger[j].Surname + trains[i].passanger[j].Name))
+                        if (Fio == (Glades.trains[i].passanger[j].Surname + Glades.trains[i].passanger[j].Name))
                         {
-                            trains[i].passanger[j].Bilets[j].Vivod(ref vivod_bil, ref i);
-                            mesto_n = int.Parse(trains[i].passanger[j].Bilets[j].Mesto_Nomer); mesto_b = trains[i].passanger[j].Bilets[j].Mesto_Bukva;
+                            Glades.trains[i].passanger[j].Bilets[j].Vivod(ref vivod_bil, ref i);
+                            mesto_n = int.Parse(Glades.trains[i].passanger[j].Bilets[j].Mesto_Nomer); mesto_b = Glades.trains[i].passanger[j].Bilets[j].Mesto_Bukva;
                             pictureBox.Visible = true;
                             pictureBox.BackColor = Color.Transparent;
                             label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
@@ -413,7 +228,7 @@ namespace Step_v0
                         firstForm.ShowDialog();
                         break;
                 case "1":
-                        Form2 secondForm = new Form2(trains);
+                        Form2 secondForm = new Form2(Glades.trains);
                         secondForm.ShowDialog();
                         break;
                 case "2":
@@ -457,7 +272,6 @@ namespace Step_v0
                     label6.ForeColor = Color.White;
                     Vivod.Visible = false; count = 0; K = 0;
                     break;
-
             }
         }
     }
