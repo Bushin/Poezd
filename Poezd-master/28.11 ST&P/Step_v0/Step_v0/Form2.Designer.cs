@@ -145,9 +145,9 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(507, 245);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 20);
+            this.label4.Size = new System.Drawing.Size(145, 20);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Отправление";
+            this.label4.Text = "Выберите ветку";
             // 
             // label5
             // 
@@ -165,14 +165,11 @@
             // 
             this.comboBox2.Enabled = false;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Москва",
-            "Узуново",
-            "Тула"});
             this.comboBox2.Location = new System.Drawing.Point(650, 244);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(127, 21);
             this.comboBox2.TabIndex = 8;
+            this.comboBox2.SelectionChangeCommitted += new System.EventHandler(this.comboBox2_SelectionChangeCommitted);
             // 
             // comboBox3
             // 
@@ -267,6 +264,7 @@
             this.listBox1.Size = new System.Drawing.Size(179, 212);
             this.listBox1.TabIndex = 17;
             this.listBox1.Visible = false;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // radioButton1
             // 
@@ -411,7 +409,8 @@
             this.comboBox5.FormattingEnabled = true;
             this.comboBox5.Location = new System.Drawing.Point(1035, 303);
             this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(127, 21);
+            this.comboBox5.Size = new System.Drawing.Size(57, 21);
+            this.comboBox5.Sorted = true;
             this.comboBox5.TabIndex = 30;
             // 
             // label15
@@ -432,7 +431,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label16.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label16.Location = new System.Drawing.Point(1208, 304);
+            this.label16.Location = new System.Drawing.Point(1121, 304);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(59, 20);
             this.label16.TabIndex = 32;
@@ -462,9 +461,9 @@
             "18",
             "19",
             "20"});
-            this.comboBox6.Location = new System.Drawing.Point(1299, 303);
+            this.comboBox6.Location = new System.Drawing.Point(1185, 304);
             this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(80, 21);
+            this.comboBox6.Size = new System.Drawing.Size(57, 21);
             this.comboBox6.TabIndex = 33;
             // 
             // label17
@@ -504,7 +503,7 @@
             "B",
             "C",
             "D"});
-            this.comboBox8.Location = new System.Drawing.Point(1224, 432);
+            this.comboBox8.Location = new System.Drawing.Point(1185, 432);
             this.comboBox8.Name = "comboBox8";
             this.comboBox8.Size = new System.Drawing.Size(80, 21);
             this.comboBox8.TabIndex = 36;
@@ -527,7 +526,7 @@
             this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label19.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label19.Location = new System.Drawing.Point(1144, 433);
+            this.label19.Location = new System.Drawing.Point(1125, 433);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(58, 20);
             this.label19.TabIndex = 38;
@@ -537,8 +536,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1449, 747);
+            this.ClientSize = new System.Drawing.Size(1275, 675);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.comboBox8);
@@ -576,6 +576,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Redactor";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.groupBox1.ResumeLayout(false);

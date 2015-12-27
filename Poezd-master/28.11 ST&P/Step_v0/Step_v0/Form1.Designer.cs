@@ -84,9 +84,10 @@
             // 
             this.textBox1.Enabled = false;
             this.textBox1.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textBox1.Location = new System.Drawing.Point(145, 73);
+            this.textBox1.Location = new System.Drawing.Point(218, 110);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(116, 26);
+            this.textBox1.Size = new System.Drawing.Size(172, 35);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -94,27 +95,30 @@
             // 
             this.textBox3.Enabled = false;
             this.textBox3.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textBox3.Location = new System.Drawing.Point(471, 127);
+            this.textBox3.Location = new System.Drawing.Point(706, 190);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(116, 26);
+            this.textBox3.Size = new System.Drawing.Size(172, 35);
             this.textBox3.TabIndex = 2;
             // 
             // textBox4
             // 
             this.textBox4.Enabled = false;
             this.textBox4.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textBox4.Location = new System.Drawing.Point(471, 73);
+            this.textBox4.Location = new System.Drawing.Point(706, 110);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(116, 26);
+            this.textBox4.Size = new System.Drawing.Size(172, 35);
             this.textBox4.TabIndex = 3;
             // 
             // textBox6
             // 
             this.textBox6.Enabled = false;
             this.textBox6.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.textBox6.Location = new System.Drawing.Point(144, 127);
+            this.textBox6.Location = new System.Drawing.Point(216, 190);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(116, 26);
+            this.textBox6.Size = new System.Drawing.Size(172, 35);
             this.textBox6.TabIndex = 5;
             this.textBox6.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -124,9 +128,10 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(28, 36);
+            this.label1.Location = new System.Drawing.Point(42, 54);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(235, 25);
+            this.label1.Size = new System.Drawing.Size(328, 37);
             this.label1.TabIndex = 6;
             this.label1.Text = "Поиск по пассажиру";
             // 
@@ -136,9 +141,10 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
             this.label2.ForeColor = System.Drawing.Color.Azure;
-            this.label2.Location = new System.Drawing.Point(31, 73);
+            this.label2.Location = new System.Drawing.Point(46, 110);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 24);
+            this.label2.Size = new System.Drawing.Size(144, 37);
             this.label2.TabIndex = 7;
             this.label2.Text = "Фамилия";
             // 
@@ -148,9 +154,10 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
             this.label3.ForeColor = System.Drawing.Color.Azure;
-            this.label3.Location = new System.Drawing.Point(33, 127);
+            this.label3.Location = new System.Drawing.Point(50, 190);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 24);
+            this.label3.Size = new System.Drawing.Size(78, 37);
             this.label3.TabIndex = 8;
             this.label3.Text = "Имя";
             // 
@@ -160,9 +167,10 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.label5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label5.Location = new System.Drawing.Point(322, 36);
+            this.label5.Location = new System.Drawing.Point(483, 54);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(226, 25);
+            this.label5.Size = new System.Drawing.Size(312, 37);
             this.label5.TabIndex = 10;
             this.label5.Text = "Поиск по маршруту";
             // 
@@ -172,9 +180,10 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.label6.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label6.Location = new System.Drawing.Point(637, 36);
+            this.label6.Location = new System.Drawing.Point(956, 54);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(282, 25);
+            this.label6.Size = new System.Drawing.Size(392, 37);
             this.label6.TabIndex = 11;
             this.label6.Text = "Поиск по номеру поезда";
             // 
@@ -184,9 +193,10 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
             this.label7.ForeColor = System.Drawing.Color.Azure;
-            this.label7.Location = new System.Drawing.Point(322, 72);
+            this.label7.Location = new System.Drawing.Point(483, 108);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 24);
+            this.label7.Size = new System.Drawing.Size(203, 37);
             this.label7.TabIndex = 12;
             this.label7.Text = "Отправление";
             // 
@@ -196,9 +206,10 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
             this.label8.ForeColor = System.Drawing.Color.Azure;
-            this.label8.Location = new System.Drawing.Point(323, 126);
+            this.label8.Location = new System.Drawing.Point(484, 189);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(101, 24);
+            this.label8.Size = new System.Drawing.Size(155, 37);
             this.label8.TabIndex = 13;
             this.label8.Text = "Прибытие";
             // 
@@ -208,18 +219,20 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F);
             this.label9.ForeColor = System.Drawing.Color.Azure;
-            this.label9.Location = new System.Drawing.Point(638, 73);
+            this.label9.Location = new System.Drawing.Point(957, 110);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 24);
+            this.label9.Size = new System.Drawing.Size(115, 37);
             this.label9.TabIndex = 14;
             this.label9.Text = "Номер";
             // 
             // Receive_data1
             // 
             this.Receive_data1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Receive_data1.Location = new System.Drawing.Point(491, 310);
+            this.Receive_data1.Location = new System.Drawing.Point(736, 465);
+            this.Receive_data1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Receive_data1.Name = "Receive_data1";
-            this.Receive_data1.Size = new System.Drawing.Size(156, 40);
+            this.Receive_data1.Size = new System.Drawing.Size(234, 60);
             this.Receive_data1.TabIndex = 15;
             this.Receive_data1.Text = "Принять данные";
             this.Receive_data1.UseVisualStyleBackColor = true;
@@ -230,9 +243,10 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.radioButton1.ForeColor = System.Drawing.Color.White;
-            this.radioButton1.Location = new System.Drawing.Point(16, 19);
+            this.radioButton1.Location = new System.Drawing.Point(24, 28);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(253, 29);
+            this.radioButton1.Size = new System.Drawing.Size(353, 41);
             this.radioButton1.TabIndex = 17;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Поиск по пассажиру";
@@ -244,9 +258,10 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.radioButton2.ForeColor = System.Drawing.Color.White;
-            this.radioButton2.Location = new System.Drawing.Point(16, 69);
+            this.radioButton2.Location = new System.Drawing.Point(24, 104);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(244, 29);
+            this.radioButton2.Size = new System.Drawing.Size(337, 41);
             this.radioButton2.TabIndex = 18;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Поиск по маршруту";
@@ -258,9 +273,10 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.radioButton3.ForeColor = System.Drawing.Color.White;
-            this.radioButton3.Location = new System.Drawing.Point(16, 117);
+            this.radioButton3.Location = new System.Drawing.Point(24, 176);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(300, 29);
+            this.radioButton3.Size = new System.Drawing.Size(417, 41);
             this.radioButton3.TabIndex = 19;
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Поиск по номеру поезда";
@@ -275,9 +291,11 @@
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(55, 311);
+            this.groupBox1.Location = new System.Drawing.Point(82, 466);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(336, 170);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(504, 255);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Выбор поиска";
@@ -285,9 +303,10 @@
             // Clean
             // 
             this.Clean.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Clean.Location = new System.Drawing.Point(669, 310);
+            this.Clean.Location = new System.Drawing.Point(1004, 465);
+            this.Clean.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Clean.Name = "Clean";
-            this.Clean.Size = new System.Drawing.Size(156, 42);
+            this.Clean.Size = new System.Drawing.Size(234, 63);
             this.Clean.TabIndex = 23;
             this.Clean.Text = "Отчистить";
             this.Clean.UseVisualStyleBackColor = true;
@@ -296,9 +315,10 @@
             // MMT
             // 
             this.MMT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MMT.Location = new System.Drawing.Point(843, 310);
+            this.MMT.Location = new System.Drawing.Point(1264, 465);
+            this.MMT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MMT.Name = "MMT";
-            this.MMT.Size = new System.Drawing.Size(156, 40);
+            this.MMT.Size = new System.Drawing.Size(234, 60);
             this.MMT.TabIndex = 24;
             this.MMT.Text = "MMT";
             this.MMT.UseVisualStyleBackColor = true;
@@ -309,9 +329,10 @@
             this.pictureBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox.BackgroundImage")));
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox.Location = new System.Drawing.Point(1321, 358);
+            this.pictureBox.Location = new System.Drawing.Point(1982, 537);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(112, 343);
+            this.pictureBox.Size = new System.Drawing.Size(168, 514);
             this.pictureBox.TabIndex = 25;
             this.pictureBox.TabStop = false;
             this.pictureBox.Visible = false;
@@ -321,9 +342,10 @@
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(1330, 342);
+            this.label10.Location = new System.Drawing.Point(1995, 513);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(15, 13);
+            this.label10.Size = new System.Drawing.Size(21, 20);
             this.label10.TabIndex = 26;
             this.label10.Text = "A";
             this.label10.Visible = false;
@@ -333,9 +355,10 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(1351, 342);
+            this.label11.Location = new System.Drawing.Point(2026, 513);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(15, 13);
+            this.label11.Size = new System.Drawing.Size(22, 20);
             this.label11.TabIndex = 27;
             this.label11.Text = "B";
             this.label11.Visible = false;
@@ -345,9 +368,10 @@
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(1382, 342);
+            this.label12.Location = new System.Drawing.Point(2073, 513);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(15, 13);
+            this.label12.Size = new System.Drawing.Size(22, 20);
             this.label12.TabIndex = 28;
             this.label12.Text = "C";
             this.label12.Visible = false;
@@ -357,9 +381,10 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(1403, 342);
+            this.label13.Location = new System.Drawing.Point(2104, 513);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(16, 13);
+            this.label13.Size = new System.Drawing.Size(23, 20);
             this.label13.TabIndex = 29;
             this.label13.Text = "D";
             this.label13.Visible = false;
@@ -369,18 +394,20 @@
             this.Vivod_ostanovok.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Vivod_ostanovok.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.Vivod_ostanovok.FormattingEnabled = true;
-            this.Vivod_ostanovok.ItemHeight = 18;
-            this.Vivod_ostanovok.Location = new System.Drawing.Point(1098, 358);
+            this.Vivod_ostanovok.ItemHeight = 28;
+            this.Vivod_ostanovok.Location = new System.Drawing.Point(1647, 537);
+            this.Vivod_ostanovok.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Vivod_ostanovok.Name = "Vivod_ostanovok";
-            this.Vivod_ostanovok.Size = new System.Drawing.Size(227, 274);
+            this.Vivod_ostanovok.Size = new System.Drawing.Size(338, 396);
             this.Vivod_ostanovok.TabIndex = 31;
             this.Vivod_ostanovok.Visible = false;
             // 
             // Editor
             // 
-            this.Editor.Location = new System.Drawing.Point(1283, 12);
+            this.Editor.Location = new System.Drawing.Point(1472, 108);
+            this.Editor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Editor.Name = "Editor";
-            this.Editor.Size = new System.Drawing.Size(136, 67);
+            this.Editor.Size = new System.Drawing.Size(204, 100);
             this.Editor.TabIndex = 32;
             this.Editor.Text = "Редактирование файлов";
             this.Editor.UseVisualStyleBackColor = true;
@@ -399,9 +426,10 @@
             this.Column5,
             this.Column6,
             this.Column7});
-            this.Vivod.Location = new System.Drawing.Point(420, 358);
+            this.Vivod.Location = new System.Drawing.Point(630, 537);
+            this.Vivod.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Vivod.Name = "Vivod";
-            this.Vivod.Size = new System.Drawing.Size(679, 274);
+            this.Vivod.Size = new System.Drawing.Size(1018, 411);
             this.Vivod.TabIndex = 33;
             this.Vivod.Visible = false;
             this.Vivod.SelectionChanged += new System.EventHandler(this.Vivod_SelectionChanged);
@@ -452,9 +480,10 @@
             this.Column8,
             this.Column9,
             this.Column10});
-            this.vivod_pas.Location = new System.Drawing.Point(573, 358);
+            this.vivod_pas.Location = new System.Drawing.Point(860, 537);
+            this.vivod_pas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.vivod_pas.Name = "vivod_pas";
-            this.vivod_pas.Size = new System.Drawing.Size(346, 150);
+            this.vivod_pas.Size = new System.Drawing.Size(519, 225);
             this.vivod_pas.TabIndex = 34;
             this.vivod_pas.Visible = false;
             this.vivod_pas.SelectionChanged += new System.EventHandler(this.vivod_pas_SelectionChanged);
@@ -483,9 +512,10 @@
             this.Column11,
             this.Column12,
             this.Column13});
-            this.vivod_bil.Location = new System.Drawing.Point(1098, 358);
+            this.vivod_bil.Location = new System.Drawing.Point(1647, 537);
+            this.vivod_bil.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.vivod_bil.Name = "vivod_bil";
-            this.vivod_bil.Size = new System.Drawing.Size(227, 274);
+            this.vivod_bil.Size = new System.Drawing.Size(340, 411);
             this.vivod_bil.TabIndex = 35;
             this.vivod_bil.Visible = false;
             // 
@@ -509,12 +539,12 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1473, 816);
+            this.ClientSize = new System.Drawing.Size(1912, 1024);
             this.Controls.Add(this.vivod_bil);
             this.Controls.Add(this.vivod_pas);
             this.Controls.Add(this.Vivod);
@@ -542,6 +572,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Simulation of Trains and Passengers";
             this.Load += new System.EventHandler(this.Form1_Load);

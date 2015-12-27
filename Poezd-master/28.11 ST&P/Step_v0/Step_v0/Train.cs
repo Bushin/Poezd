@@ -10,14 +10,16 @@ namespace Step_v0
     {
         public string Nomer, Type,ID;
         public List<DateTime> Time;
+        public List<Passanger> passanger;
         public string last_stops;
         public  bool motion;
 
-        public Train(string n, string t, string id, List<DateTime> Vreme_ostanovkok) {
+        public Train(string n, string t, string id, List<DateTime> Vreme_ostanovkok, List<Passanger> pass) {
             Nomer = n;
             Type = t;
             ID = id;
             Time = Vreme_ostanovkok;
+            passanger = pass;
         }
 
 
@@ -47,8 +49,8 @@ namespace Step_v0
             DateTime realtime = new DateTime();
             hour = int.Parse(DateTime.Now.ToString("HH"));
             min = int.Parse(DateTime.Now.ToString("mm"));
-           realtime = realtime.AddHours(hour);
-           realtime= realtime.AddMinutes(min);
+            realtime = realtime.AddHours(hour);
+            realtime= realtime.AddMinutes(min);
 
             if (realtime <= Time[0])//поезl не выехал
             {

@@ -85,6 +85,7 @@ namespace Step_v0
             {
                 List<string> distance = new List<string>();
                 List<DateTime> time = new List<DateTime>();
+                List<Passanger> passangers = new List<Passanger>();
                 if (node.Attributes.Count > 0)
                 {                 
                     XmlNode attr = node.Attributes.GetNamedItem("name");
@@ -116,10 +117,12 @@ namespace Step_v0
                         }
                     }
                 }
-                t= new Train(nomer,type,id,time);           
+                passangers = PoiskVsexPasagirov(nomer);
+                t= new Train(nomer,type,id,time,passangers);           
                 trains.Add(t);
                 distance = null;
                 time = null;
+                passangers = null;
             }
         }
 
@@ -158,7 +161,7 @@ namespace Step_v0
         public void PoiskVsexmarshrutov()
         {
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\Users\\Жанна\\Documents\\Visual Studio 2015\\Projects\\Poezd-master\\28.11 ST&P\\Step_v0\\Step_v0\\Distanation.xml");
+            Doc.Load("Distanation.xml");
             XmlElement Root = Doc.DocumentElement;
             string start = "", end = "",id="";
             foreach (XmlNode node in Root)
@@ -195,9 +198,11 @@ namespace Step_v0
             }
         }
 
-        public void PoiskVsexPasagirov()
+        public static List<Passanger> PoiskVsexPasagirov(string nomer)
         {
+            Passanger pas; Bilet bil;
             XmlDocument Doc = new XmlDocument();
+            List<Passanger> passangers_for_current_train = new List<Passanger>();
             Doc.Load("Passanger.xml");
             XmlElement Root = Doc.DocumentElement;
             string n = "", s = "", nomer_poezda = "", nomer_vagona = "", mesto_nomer = "", mesto_bukva = "";
@@ -211,92 +216,95 @@ namespace Step_v0
                         n = info[1]; s = info[0]; nomer_poezda = info[2]; nomer_vagona = info[3]; mesto_nomer = info[4]; mesto_bukva = info[5];
                     }
                 }
-                bil = new Bilet(nomer_poezda, nomer_vagona, mesto_nomer, mesto_bukva);
-                bilets.Add(bil);
-                pas = new Passanger(n, s, nomer_poezda, bilets);               
-                passangers.Add(pas);
+                if (nomer == nomer_poezda)
+                {
+                    bil = new Bilet(nomer_poezda, nomer_vagona, mesto_nomer, mesto_bukva);
+                    bilets.Add(bil);
+                    pas = new Passanger(n, s, nomer_poezda, bilets);
+                    passangers_for_current_train.Add(pas);
+                    
+                }
+
+            }
+            return passangers_for_current_train;
+        }
+
+        void Vivod_poezdov_marshrutov(int i) {
+            for (int j = 0; j < marshruti.Count; j++)
+            {
+                if (trains[i].ID == marshruti[j].ID)
+                {
+                    trains[i].last_ostanovka(marshruti[j]);
+                    current_trains.Add(trains[i]);
+                    trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
+                    count++;
+                }
             }
         }
+
+
 
         private void Receive_data1_Click(object sender, EventArgs e)
         {
             if (f == 3)
             {
-                string str = c_b.Text; bool f = false;Vivod.Rows.Add();
-                if (str == "")
-                {
-                    f = true;
+                string str = c_b.Text;int proverka_na_povtor=0;               
+                if (K != 0)
+                { 
+                  proverka_na_povtor=Proverka_poezdov(str,current_trains); 
+                }
+                
+                if ((str == "") && (K == 0))
+                {                 
                     for (int i = 0; i < trains.Count; i++)
                     {
-                        for (int j = 0; j < marshruti.Count; j++)
-                        {
-                            if (trains[i].ID == marshruti[j].ID)
-                            {
-                                trains[i].last_ostanovka(marshruti[j]);
-                                current_trains.Add(trains[i]);
-                                trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
-                                count++;
-                            }
-                        }
+                        K++;
+                        Vivod_poezdov_marshrutov(i);
                     }
                 }
-                if (f == false)
-                {     
+                else
+                {
+                    if (proverka_na_povtor == 0)
+                    {
                         for (int i = 0; i < trains.Count; i++)
                         {
                             if (str == trains[i].Nomer)
                             {
-                                for (int j = 0; j < marshruti.Count; j++)
-                                {
-                                    if (trains[i].ID == marshruti[j].ID)
-                                    {
-                                        trains[i].last_ostanovka(marshruti[j]);
-                                        current_trains.Add(trains[i]);
-                                        trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
-                                        count++;
-                                    }
-                                }
-                            }                 
-                        }            
-                }  
-            }
-
-            if (f == 2)
-            {
-                string str1 = textBox4.Text, str2 = textBox3.Text;bool f = false;Vivod.Rows.Add();
-                string str_ob = str1 + str2;
-                if (str_ob == "")
-                {
-                    f = true;
-                    for (int i = 0; i < trains.Count; i++)
-                    {
-                        for (int j = 0; j < marshruti.Count; j++)
-                        {
-                            if (trains[i].ID == marshruti[j].ID)
-                            {
-                                trains[i].last_ostanovka(marshruti[j]);
-                                current_trains.Add(trains[i]);
-                                trains[i].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[j].Start, ref marshruti[j].End);
-                                count++;
+                                K++;
+                                Vivod_poezdov_marshrutov(i); 
                             }
                         }
                     }
                 }
-                if (f == false)
+            }
+
+            if (f == 2)
+            {
+                string str1 = textBox4.Text, str2 = textBox3.Text; int proverka_na_povtor = 0;
+                string str_ob = str1 + str2;
+                if (K != 0)
                 {
-                    for (int i = 0; i < marshruti.Count; i++)
+                    proverka_na_povtor = Proverka_poezdov(str_ob, current_trains);
+                }
+
+                if ((str_ob == "") && (K == 0))
+                {
+                    for (int i = 0; i < trains.Count; i++)
                     {
-                        if ((marshruti[i].Start+marshruti[i].End).Contains(str_ob))
+                        K++;
+                        Vivod_poezdov_marshrutov(i);
+                    }
+                }
+                else
+                {
+                    if (proverka_na_povtor == 0)
+                    {
+                        for (int i = 0; i < trains.Count; i++)
                         {
-                            for (int j = 0; j < trains.Count; j++)
+                            if ((marshruti[i].Start + marshruti[i].End).Contains(str_ob))
                             {
-                                if (trains[j].ID == marshruti[i].ID)
-                                {
-                                    trains[j].last_ostanovka(marshruti[i]);
-                                    current_trains.Add(trains[j]);
-                                    trains[j].Vivod(ref textBox4, ref textBox3, ref Vivod, ref count, ref marshruti[i].Start, ref marshruti[i].End);
-                                    count++;
-                                }
+                                K++;
+                                Vivod_poezdov_marshrutov(i);
                             }
                         }
                     }
@@ -305,26 +313,30 @@ namespace Step_v0
 
             if (f == 1)
             {
-                string str1 = textBox1.Text;string str2 = textBox6.Text; bool f = false; vivod_pas.Rows.Add();vivod_bil.Rows.Add();
+                string str1 = textBox1.Text;string str2 = textBox6.Text;vivod_pas.Rows.Add();vivod_bil.Rows.Add();
                 string str_ob = str1 + str2;
                 if (str_ob == "")
                 {
-                    f = true;
-                    for (int i = 0; i < passangers.Count; i++)
+                    for (int i = 0; i < trains.Count; i++)
                     {
-                        pas = passangers[i];
-                        pas.Vivod(ref vivod_pas,ref count);
-                        count++;
+                        for (int j = 0; j < trains[i].passanger.Count; j++)
+                        {
+                            trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
+                            count++;
+                        }
                     }
                 }
-                if (f == false) {
-                    for (int i = 0; i < passangers.Count; i++)
+                else {
+                    for (int i = 0; i < trains.Count; i++)
                     {
-                       if ((passangers[i].Surname+passangers[i].Name).Contains(str_ob))
-                       {
-                           passangers[i].Vivod(ref vivod_pas,ref count);
-                            count++;
-                       }
+                        for (int j = 0; j < trains[i].passanger.Count; j++)
+                        {
+                            if ((trains[i].passanger[j].Surname + trains[i].passanger[j].Name).Contains(str_ob))
+                            {
+                                trains[i].passanger[j].Vivod(ref vivod_pas, ref count);
+                                count++;
+                            }
+                        }
                     }
                 }
             }
@@ -358,8 +370,7 @@ namespace Step_v0
         private void Form1_Load(object sender, EventArgs e)
         {
             PoiskVsexmarshrutov();
-            PoiskVsexPoezdov(); 
-            PoiskVsexPasagirov();         
+            PoiskVsexPoezdov();          
             c_b.Location= new Point(801,73);c_b.Enabled = false;
             this.Controls.Add(c_b);
             for (int i=0;i<trains.Count;i++)
@@ -385,6 +396,21 @@ namespace Step_v0
            }*/
         }
 
+        public static int Proverka_poezdov(string s,List<Train> c_t){
+            int p = 0;
+            for (int i = 0; i < c_t.Count; i++)
+            {
+                if (s == c_t[i].Nomer)
+                {
+                     p = 1;
+                    return p;
+                }
+                else {  p = 0; }
+            }
+            return p;
+        }
+
+
         private void vivod_pas_SelectionChanged(object sender, EventArgs e)
         {
             if (K > 0) { 
@@ -392,21 +418,24 @@ namespace Step_v0
             string curName = vivod_pas[1, vivod_pas.CurrentRow.Index].Value.ToString();
             vivod_bil.Rows.Clear();
             string Fio = ""; Fio+= curSurname + curName;
-            for (int i = 0; i < passangers.Count; i++) {
-                    if (Fio == (passangers[i].Surname + passangers[i].Name))
+            for (int i = 0; i < trains.Count; i++) {
+                    for (int j = 0; j < trains[i].passanger.Count; j++)
                     {
-                        bilets[i].Vivod(ref vivod_bil, ref i);
-                        mesto_n = int.Parse(bilets[i].Mesto_Nomer); mesto_b = bilets[i].Mesto_Bukva;
-                        pictureBox.Visible = true;
-                        pictureBox.BackColor = Color.Transparent;
-                        label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
-                        pictureBoxs.Size = new Size(22, 22);
-                        pictureBoxs.Load("seat.jpg");
-                        pictureBoxs.BackColor = Color.Transparent;
-                        int X = Vagon.PoiskX(mesto_n, mesto_b);
-                        int Y = Vagon.PoiskY(mesto_n, mesto_b);
-                        pictureBoxs.Location = new Point(X, Y);
-                        pictureBox.Controls.Add(pictureBoxs);
+                        if (Fio == (trains[i].passanger[j].Surname + trains[i].passanger[j].Name))
+                        {
+                            trains[i].passanger[j].Bilets[j].Vivod(ref vivod_bil, ref i);
+                            mesto_n = int.Parse(trains[i].passanger[j].Bilets[j].Mesto_Nomer); mesto_b = trains[i].passanger[j].Bilets[j].Mesto_Bukva;
+                            pictureBox.Visible = true;
+                            pictureBox.BackColor = Color.Transparent;
+                            label10.Visible = true; label11.Visible = true; label12.Visible = true; label13.Visible = true;
+                            pictureBoxs.Size = new Size(22, 22);
+                            pictureBoxs.Load("seat.jpg");
+                            pictureBoxs.BackColor = Color.Transparent;
+                            int X = Vagon.PoiskX(mesto_n, mesto_b);
+                            int Y = Vagon.PoiskY(mesto_n, mesto_b);
+                            pictureBoxs.Location = new Point(X, Y);
+                            pictureBox.Controls.Add(pictureBoxs);
+                        }
                     }
                 }
             }           
